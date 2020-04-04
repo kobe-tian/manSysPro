@@ -1,2 +1,3 @@
-django==2.2
-pymysql
+django==2.1.11
+PyMySQL==0.9.3
+cryptography
