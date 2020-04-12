@@ -65,8 +65,7 @@ h3 {
 
 .login {
   background-color: lightskyblue;
-  margin-top: 90px;
-  margin-left: 560px;
+  margin: 0 auto;
   width: 400px;
   height: 300px;
   border-radius: 20px;
