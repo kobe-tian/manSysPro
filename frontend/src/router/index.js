@@ -25,6 +25,9 @@ import TakeMedicine from '@/pages/Medicine/TakeMedicine'
 import DiagnosisDetail from '@/pages/Patient/DiagnosisDetail'
 import Insert from '@/pages/Patient/Insert'
 import PrintPatient from '@/pages/Patient/PrintPatient'
+import SearchByPatientDept from '@/pages/Patient/SearchByPatientDept'
+import SearchByPatientName from '@/pages/Patient/SearchByPatientName'
+import SearchPatientChoose from '@/pages/Patient/SearchPatientChoose'
 
 Vue.use(Router)
 
@@ -154,6 +157,21 @@ export default new Router({
       path: '/PrintPatient',
       name: 'PrintPatient',
       component: PrintPatient
+    },
+    {
+      path: '/SearchByPatientDept',
+      name: 'SearchByPatientDept',
+      component: SearchByPatientDept
+    },
+    {
+      path: '/SearchByPatientName',
+      name: 'SearchByPatientName',
+      component: SearchByPatientName
+    },
+    {
+      path: '/SearchPatientChoose',
+      name: 'SearchPatientChoose',
+      component: SearchPatientChoose
     }
   ]
 })
