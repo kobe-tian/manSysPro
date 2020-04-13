@@ -22,6 +22,9 @@ import AddNewMedicine from '@/pages/Medicine/AddNewMedicine'
 import AddType from '@/pages/Medicine/AddType'
 import MedicineManage from '@/pages/Medicine/MedicineManage'
 import TakeMedicine from '@/pages/Medicine/TakeMedicine'
+import DiagnosisDetail from '@/pages/Patient/DiagnosisDetail'
+import Insert from '@/pages/Patient/Insert'
+import PrintPatient from '@/pages/Patient/PrintPatient'
 
 Vue.use(Router)
 
@@ -136,6 +139,21 @@ export default new Router({
       path: '/TakeMedicine',
       name: 'TakeMedicine',
       component: TakeMedicine
+    },
+    {
+      path: '/DiagnosisDetail',
+      name: 'DiagnosisDetail',
+      component: DiagnosisDetail
+    },
+    {
+      path: '/Insert',
+      name: 'Insert',
+      component: Insert
+    },
+    {
+      path: '/PrintPatient',
+      name: 'PrintPatient',
+      component: PrintPatient
     }
   ]
 })
