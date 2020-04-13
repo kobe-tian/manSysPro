@@ -1,0 +1,223 @@
+<template>
+  <div>
+    <div id="bg">
+      <div CLASS="head">
+        <h2>药品管理</h2>
+      </div>
+      <div class="inf">
+        <h3>所有药品信息表</h3>
+        <form action="/search_medicine/">
+          <div class="guodong">
+            <table border="1">
+              <tr>
+                <td>药&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;称</td>
+                <td>药&nbsp;品&nbsp;数&nbsp;量</td>
+              </tr>
+              <tr>
+                <td> medicine.medicine_name </td>
+                <td> medicine.medicine_num </td>
+              </tr>
+            </table>
+          </div>
+        </form>
+      </div>
+
+      <form action="/back2/" method="post">
+        <input type="submit" value="添加新药材" class="tian btn-default">
+      </form>
+
+      <div class="find">
+
+        <p>请输入药品名称：</p><br>
+        <form action="/search_medicine/" method="post">
+          <input type="text" name="medicine_name" value=" medicine " formmethod="post"
+            style="font-size: 18px ;width: 150px">
+          <input type="submit" value="查找" class="btn0 btn-default">
+        </form>
+        <form>
+          <input type="submit" value="取药" class="btn1 btn-default" formaction="/take_medicine/" formmethod="get"
+            id="btnq">
+          <input type="submit" value="添加" class="btn1 btn-default" formaction="/add_medicine/" formmethod="get"
+            id="btnt">
+        </form>
+        <table border="1" class="b">
+          <tr>
+            <td> result_key </td>
+          </tr>
+          <tr>
+            <td> result_value </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <input action="/back2/" method="get">
+    <input type="submit" value="返回上一级" class="btn2 btn-default"/>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+
+  },
+  data () {
+    return {
+
+    }
+  },
+  computed: {
+
+  },
+  created () {
+
+  },
+  mounted () {
+
+  },
+  watch: {
+
+  },
+  methods: {
+
+  },
+  components: {
+
+  }
+}
+</script>
+
+<style scoped lang="scss">
+body {
+  background: url("../../assets/img/1234.png") no-repeat center center fixed;
+  background-size: 100%;
+  height: 400px;
+  font-size: 18px;
+}
+
+.find {
+  width: 350px;
+  height: 350px;
+  margin-left: 42%;
+  margin-top: 7%;
+  float: left;
+
+  background-color: rgba(142, 229, 238, 0.2);
+}
+
+.find p {
+  margin-top: 40px;
+  margin-left: 20%;
+}
+
+.find form {
+  margin-left: 20%;
+}
+
+.btn input {
+  /*设置两个按钮的宽高、边距及边框样式*/
+  width: 50px;
+  height: 24px;
+  margin-right: 50px;
+  background: #87ceff;
+  border-radius: 20px;
+}
+
+.btn0 {
+  font-size: 16px;
+  margin-right: 50px;
+  background: #87ceff;
+  border-radius: 20px;
+}
+
+#btnt {
+  position: absolute;
+  width: 80px;
+  top: 380px;
+  left: 300px;
+  margin-top: 20%;
+  margin-left: 10%;
+  font-size: 16px;
+  background: #87ceff;
+  border-radius: 20px;
+}
+
+.b {
+  margin-top: 40px;
+  margin-left: 25%;
+}
+
+.inf {
+  margin-top: 2%;
+  margin-right: 12%;
+  width: 200px;
+  height: 400px;
+  float: right;
+}
+
+.guodong {
+  width: 250px;
+  height: 350px;
+  overflow: auto;
+}
+
+.btn2 {
+  width: 120px;
+  height: 50px;
+  background: #87ceff;
+  border-radius: 20px;
+  position: absolute;
+  left: 100px;
+  top: 570px;
+  font-size: 18px;
+}
+
+.tian {
+  position: absolute;
+  top: 140px;
+  right: 100px;
+  width: 100px;
+  height: 35px;
+  background: #87ceff;
+  border-radius: 20px;
+  font-size: 16px;
+}
+
+.head {
+  position: relative;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#bg {
+  width: 100%;
+  height: 300px;
+  position: static;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  text-align: center;
+  overflow: auto;
+}
+
+table td,
+table th {
+  border: 1px solid #cad9ea;
+  color: black;
+  height: 30px;
+}
+
+table thead th {
+  background-color: #cce8eb;
+  width: 100px;
+}
+
+table tr:nth-child(odd) {
+  background: #63b8ff;
+}
+
+table tr:nth-child(even) {
+  background: #87ceff;
+}
+</style>

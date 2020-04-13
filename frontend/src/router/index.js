@@ -17,6 +17,11 @@ import SearchDoctorChoose from '@/pages/Doctor/SearchDoctorChoose'
 import SearchEmptyRoom from '@/pages/Doctor/SearchEmptyRoom'
 import UserWork from '@/pages/Doctor/UserWork'
 import UsersWork from '@/pages/Doctor/UsersWork'
+import AddMedicine from '@/pages/Medicine/AddMedicine'
+import AddNewMedicine from '@/pages/Medicine/AddNewMedicine'
+import AddType from '@/pages/Medicine/AddType'
+import MedicineManage from '@/pages/Medicine/MedicineManage'
+import TakeMedicine from '@/pages/Medicine/TakeMedicine'
 
 Vue.use(Router)
 
@@ -106,6 +111,31 @@ export default new Router({
       path: '/UsersWork',
       name: 'UsersWork',
       component: UsersWork
+    },
+    {
+      path: '/AddMedicine',
+      name: 'AddMedicine',
+      component: AddMedicine
+    },
+    {
+      path: '/AddNewMedicine',
+      name: 'AddNewMedicine',
+      component: AddNewMedicine
+    },
+    {
+      path: '/AddType',
+      name: 'AddType',
+      component: AddType
+    },
+    {
+      path: '/MedicineManage',
+      name: 'MedicineManage',
+      component: MedicineManage
+    },
+    {
+      path: '/TakeMedicine',
+      name: 'TakeMedicine',
+      component: TakeMedicine
     }
   ]
 })
