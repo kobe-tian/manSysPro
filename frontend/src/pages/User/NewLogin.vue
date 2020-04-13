@@ -1,30 +1,41 @@
 <template>
   <div class="login">
-    <h3>
-      欢&nbsp;&nbsp;迎&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;医&nbsp;&nbsp;院&nbsp;&nbsp;管&nbsp;&nbsp;理&nbsp;&nbsp;平&nbsp;&nbsp;台
+    <h3 class="title">
+      欢迎登录医院管理平台
     </h3>
-    <div class="1">
-      <form>
-        <input type="text" class="kuang1" placeholder="Username" name="user_name"><br>
-        <input type="password" class="kuang2" placeholder="Password" name="password"><br>
-        <input type="submit" class="sub1 btn btn-success" value="Manager_login" formmethod="post"
-          formaction="/new_login/">
-        <input type="submit" class="sub1 btn btn-success" value="Doctor_login" formmethod="post"
-          formaction="/doctor_login/">
-        <input type="submit" value="regist" class="sub2 btn btn-success">
-      </form>
+    <div class="container">
+      <el-form label-position="left" label-width="80px" :model="form">
+        <el-form-item label="username">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="password">
+          <el-input type="password" v-model="form.password"></el-input>
+        </el-form-item>
+      </el-form>
+      <div style="margin-left: 30px;">
+        <el-button type="success" @click="mLogin">Manager Login</el-button>
+        <el-button type="success" @click="dLogin">Doctor Login</el-button>
+      </div>
+      <div style="margin-left: 345px;">
+        <el-button type="success" @click="regist">regist</el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import doctorApi from '@/api/doctor'
+
 export default {
   props: {
 
   },
   data () {
     return {
-
+      form: {
+        username: '',
+        password: ''
+      }
     }
   },
   computed: {
@@ -40,7 +51,47 @@ export default {
 
   },
   methods: {
-
+    mLogin () {
+      // let that = this
+      console.log('form >>> ', this.form)
+      const { username, password } = this.form
+      let data = {
+        api: 'https://c4554896.ngrok.io/new_login',
+        params: {
+          user_name: username,
+          password: password
+        }
+      }
+      doctorApi.mLogin(data.params).then(res => {
+        console.log('res >>> ', res)
+      })
+    },
+    dLogin () {
+      // let that = this
+      // console.log('form >>> ', this.form)
+      // const { username, password } = this.form
+      // let data = {
+      //   api: 'https://c4554896.ngrok.io/doctor_login',
+      //   params: {
+      //     user_name: username,
+      //     password: password
+      //   }
+      // }
+      // axios.post(data.api, data.params)
+      //   .then(function (res) {
+      //     const { data: { status } } = res
+      //     console.log(status)
+      //     if (status === 2) {
+      //       that.$router.push('/DoctorChoose')
+      //     }
+      //   })
+      //   .catch(function (err) {
+      //     console.log(err)
+      //   })
+    },
+    regist () {
+      this.$router.push('/DoctorRegist')
+    }
   },
   components: {
 
@@ -48,60 +99,28 @@ export default {
 }
 </script>
 
-<style scoped>
-body {
-  background-color: mediumorchid;
-  background: url("../../assets/img/small.jpg") no-repeat center center fixed;
-  background-size: 100%;
-}
-
-h3 {
-  font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
-  font-size: 60px;
-  color: dodgerblue;
-  text-align: center;
-  margin-top: 80px;
-}
-
+<style lang="scss" scoped>
 .login {
-  background-color: lightskyblue;
-  margin: 0 auto;
-  width: 400px;
-  height: 300px;
-  border-radius: 20px;
-}
-
-.kuang1 {
-  width: 200px;
-  height: 27px;
-  border-radius: 8px;
-  color: midnightblue;
-  margin: 50px 10px 50px 50px;
-}
-
-.kuang2 {
-  width: 200px;
-  height: 27px;
-  border-radius: 8px;
-  color: midnightblue;
-  margin: 10px 50px 50px 50px;
-}
-
-.sub1 {
-  font-family: "Source Sans Pro", sans-serif;
-  width: 120px;
-  height: 40px;
-  border-radius: 10px;
-  margin-left: 40px;
-}
-
-.sub2 {
-  font-family: "Source Sans Pro", sans-serif;
-  width: 80px;
-  height: 30px;
-  border-radius: 10px;
-  margin-left: 40px;
-  margin-top: 15px;
-  float: right;
+  width: 100%;
+  height: calc(100vh);
+  padding: 1px;
+  background: #eee;
+  background: url('../../assets/img/small.jpg') no-repeat center center fixed;
+  background-size: 100% 100%;
+  .title {
+    font-family: 'Roboto', 'Lucida Grande', Verdana, Arial, sans-serif;
+    font-size: 60px;
+    color: dodgerblue;
+    text-align: center;
+    margin-top: 80px;
+  }
+  .container {
+    padding: 30px;
+    width: 400px;
+    height: 190px;
+    background: lightskyblue;
+    border-radius: 15px;
+    margin: 30px auto 0;
+  }
 }
 </style>
