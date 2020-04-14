@@ -10,7 +10,7 @@
           <input class="kuang1" type="password" size="40" v-model="form.password" /><br><br>
           医生编号：
           <input class="kuang1" type="text" size="40" v-model="form.number" /><br><br>
-          <input type="submit" class="btn02 btn btn-success" value="注册" @click="confirm">
+          <el-button class="btn02 btn-success" @click="confirm">注册</el-button>
         </div>
       </form>
     </div>
@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import doctorApi from '@/api/doctor'
-
 export default {
   props: {
 
@@ -56,7 +54,7 @@ export default {
         doctor_id: number
       }
       console.log('params >>> ', params)
-      doctorApi.regist(params).then(res => {
+      this.$api.regist(params).then(res => {
         console.log('res >>> ', res)
         const { data: { status, info } } = res
         console.log(status)
@@ -85,7 +83,7 @@ export default {
 }
 .body {
   background-color: mediumorchid;
-  background: url(/static/img/xiandaiyiyuanlansediaoshuyedating_9400303_small.57cd42b.jpg)
+  background: url("../../assets/img/xiandaiyiyuanlansediaoshuyedating_9400303_small.jpg")
     no-repeat center center fixed;
   background-size: 100% 100%;
   padding: 1px;
@@ -101,8 +99,12 @@ export default {
   margin-left: 5%;
 }
 .btn02 {
-  height: 35px;
-  width: 95px;
+  font-family: "Source Sans Pro", sans-serif;
+  width: 80px;
+  border-radius: 10px;
+  float: right;
+  margin-right: 5%;
+  margin-top: 6%;
   border-radius: 45px;
   margin-left: 190px;
   background: #5cb85c;
@@ -121,20 +123,11 @@ input {
   margin-top: 5%;
   color: darkslateblue;
   font-size: 36px;
-  font-family: 'Adobe 黑体 Std R';
+  font-family: "Adobe 黑体 Std R";
   text-align: center;
 }
 #bg {
   margin-left: 10%;
   padding-top: 9%;
-}
-.btn02 {
-  font-family: 'Source Sans Pro', sans-serif;
-  width: 80px;
-  height: 30px;
-  border-radius: 10px;
-  float: right;
-  margin-right: 5%;
-  margin-top: 6%;
 }
 </style>

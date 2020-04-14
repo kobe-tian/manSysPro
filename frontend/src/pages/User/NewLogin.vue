@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import doctorApi from '@/api/doctor'
+// import doctorApi from '@/api/doctor'
 
 export default {
   props: {
@@ -62,7 +62,7 @@ export default {
           password: password
         }
       }
-      doctorApi.mLogin(data.params).then(res => {
+      this.$api.mLogin(data.params).then(res => {
         console.log('res >>> ', res)
       })
     },
@@ -105,10 +105,10 @@ export default {
   height: calc(100vh);
   padding: 1px;
   background: #eee;
-  background: url('../../assets/img/small.jpg') no-repeat center center fixed;
+  background: url("../../assets/img/small.jpg") no-repeat center center fixed;
   background-size: 100% 100%;
   .title {
-    font-family: 'Roboto', 'Lucida Grande', Verdana, Arial, sans-serif;
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
     font-size: 60px;
     color: dodgerblue;
     text-align: center;

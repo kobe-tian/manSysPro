@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
+
 import newLogin from '@/pages/User/newLogin'
 import doctorRegist from '@/pages/User/doctorRegist'
 import Choose from '@/pages/User/Choose'
@@ -39,11 +39,6 @@ export default new Router({
       name: 'Login',
       component: newLogin
     },
-    // {
-    //   path: '/Login',
-    //   name: 'Login',
-    //   component: newLogin
-    // },
     {
       path: '/doctorRegist',
       name: 'doctorRegist',
