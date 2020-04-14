@@ -67,27 +67,27 @@ export default {
       })
     },
     dLogin () {
-      // let that = this
-      // console.log('form >>> ', this.form)
-      // const { username, password } = this.form
-      // let data = {
-      //   api: 'https://c4554896.ngrok.io/doctor_login',
-      //   params: {
-      //     user_name: username,
-      //     password: password
-      //   }
-      // }
-      // axios.post(data.api, data.params)
-      //   .then(function (res) {
-      //     const { data: { status } } = res
-      //     console.log(status)
-      //     if (status === 2) {
-      //       that.$router.push('/DoctorChoose')
-      //     }
-      //   })
-      //   .catch(function (err) {
-      //     console.log(err)
-      //   })
+      let that = this
+      console.log('form >>> ', this.form)
+      const { username, password } = this.form
+      let data = {
+        api: 'https://c4554896.ngrok.io/doctor_login',
+        params: {
+          user_name: username,
+          password: password
+        }
+      }
+      this.$api.dLogin(data.params).then(res => {
+        console.log('res >>> ', res)
+        const { data: { status } } = res
+        console.log(status)
+        if (status === 0) {
+          that.$router.push('/DoctorChoose')
+        }
+      })
+        .catch(function (err) {
+          console.log(err)
+        })
     },
     regist () {
       this.$router.push('/DoctorRegist')
@@ -105,10 +105,10 @@ export default {
   height: calc(100vh);
   padding: 1px;
   background: #eee;
-  background: url("../../assets/img/small.jpg") no-repeat center center fixed;
+  background: url('../../assets/img/small.jpg') no-repeat center center fixed;
   background-size: 100% 100%;
   .title {
-    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+    font-family: 'Roboto', 'Lucida Grande', Verdana, Arial, sans-serif;
     font-size: 60px;
     color: dodgerblue;
     text-align: center;

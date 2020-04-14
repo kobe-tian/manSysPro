@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div class="body">
     <div class="div1">
       <form>
-        {% csrf_token %}
         <h5>目前已有 length人挂号</h5>
         请选择该病人的问诊号：
         <select name="patient_id" class="a">
           <option> patient_id</option>
           <option>patient_all_i.id</option>
-          {% endfor %}
         </select>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <input class="input1 btn-success" type="submit" value="确认" formaction="/display/" formmethod="post"><br><br>
@@ -38,9 +36,7 @@
       <input type="submit" class="btn-success " value="分配病房" formaction="/distribute_room/" formmethod="get"><br><br>
       药品1：<select name="medicine1">
         <option></option>
-        {% for medicine in medicines %}
         <option>medicine.medicine_name</option>
-        {% endfor %}
       </select>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剂量：<select class="select1" name="num1">
         <option></option>
@@ -75,9 +71,7 @@
       </select><br><br>
       药品3：<select name="medicine3">
         <option></option>
-        {% for medicine in medicines %}
         <option value="medicine.medicine_name">medicine.medicine_name</option>
-        {% endfor %}
       </select>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;剂量：<select name="num3" class="select1">
         <option></option>
@@ -169,7 +163,7 @@ div {
   border-style: solid;
   height: 535px;
   width: 525px;
-  margin-left: 380px;
+
   opacity: 0.7;
   filter: alpha(opacity=0.5);
 }
@@ -178,7 +172,7 @@ div {
   height: 160px;
   padding-top: 20px;
   padding-left: 40px;
-  margin-left: 300px;
+
   width: 525px;
 }
 
@@ -187,7 +181,7 @@ div {
   padding-top: 45px;
   padding-left: 40px;
   width: 525px;
-  margin-left: 300px;
+
 }
 
 .div3 {
@@ -196,7 +190,7 @@ div {
   padding-right: 5px;
   width: 525px;
   height: 230px;
-  margin-left: 300px;
+
 }
 
 .yizhu {
@@ -216,8 +210,7 @@ h5 {
   height: 40px;
   background-color: cornflowerblue;
   border-radius: 5px;
-  margin-right: 1300px;
-  margin-top: -30px;
+
   border-style: none;
 }
 
@@ -227,8 +220,7 @@ h5 {
   height: 40px;
   background-color: cornflowerblue;
   border-radius: 5px;
-  margin-right: 450px;
-  margin-top: -30px;
+
   border-style: none;
 }
 
@@ -238,10 +230,10 @@ h5 {
   background-color: #8ee5ee;
 }
 
-body {
+.body {
   background: url("../../assets/img/diagnosis3.png") no-repeat center center
     fixed;
-  background-size: 100%;
+  background-size: auto 100%;
 }
 
 .input1 {

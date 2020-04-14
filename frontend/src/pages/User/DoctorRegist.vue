@@ -59,7 +59,7 @@ export default {
         const { data: { status, info } } = res
         console.log(status)
         if (status === 2) {
-          that.$router.push('/Login')
+          that.$router.push('/')
         } else {
           alert(info)
         }
