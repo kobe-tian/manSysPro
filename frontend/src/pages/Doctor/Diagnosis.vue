@@ -2,15 +2,14 @@
   <div class="body">
     <div class="div1 hello">
       <form>
-        <h5>目前已有2人挂号</h5>
+        <h5>目前已有{{data.length}}人挂号</h5>
         <div class="b">
           <span>请选择该病人的问诊号：</span>
-          <select name="patient_id" class="a">
-            <option> patient_id</option>
-            <option>patient_all_i.id</option>
+          <select class="a" :v-model="num" @change="changeSelect">
+            <option v-for="(item,key) in data.patient_all_id" :key="key"> {{item.id}}</option>
           </select>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <input class="input1 btn-success" type="submit" value="确认" formaction="/display/" formmethod="post">
+          <input class="input1 btn-success" type="button" value="确认">
         </div>
         <br><br>
         <table border="2">
@@ -22,21 +21,21 @@
             <th>科&nbsp;&nbsp;&nbsp;室</th>
           </tr>
           <tr>
-            <td>me</td>
-            <td>x</td>
-            <td>e</td>
-            <td>lep</td>
-            <td>pt.dept_name</td>
+            <td>{{data.patient_all_id[tableNum].name}}</td>
+            <td>{{data.patient_all_id[tableNum].sex}}</td>
+            <td>{{data.patient_all_id[tableNum].age}}</td>
+            <td>{{data.patient_all_id[tableNum].telp}}</td>
+            <td>{{data.patient_all_id[tableNum].dept}}</td>
           </tr>
         </table>
         <br><br><br>
       </form>
     </div>
     <div class="div2 hello">
-      <div class="tee">诊断结果：<input class="xian" type="text" name="diagnosis_result" value=" diagnosis_result"></div>
+      <div class="tee">诊断结果：<input class="xian" type="text" v-model="diagnosis_result"></div>
       <br><br>
       <div class="tee">病房号：<input class="xian" type="text" name="room_id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="submit" class="btn-success " value="分配病房" formaction="/distribute_room/" formmethod="get"></div>
+        <input type="button" class="btn-success " value="分配病房" @click="fenpei"></div>
       <br><br>
       <div class="tee">药品1：<select name="medicine1">
           <option></option>
@@ -121,14 +120,20 @@ export default {
   },
   data () {
     return {
-
+      diagnosis_result: '',
+      tableNum: 0,
+      num: 1,
+      data: {
+        length: 0,
+        patient_all_id: [1]
+      }
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -137,7 +142,28 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.ruyuandengji().then(res => {
+        console.log('res >>> ', res)
+        const { data } = res
+        console.log('data >>> ', data)
+        this.data = data
+      })
+    },
+    changeSelect (select) {
+      let value = select.srcElement.value
+      this.num = select.srcElement.value
+      console.log('select >>> ', select.srcElement.value)
+      this.tableChange(value)
+    },
+    tableChange (value) {
+      this.tableNum = value - 1
+      console.log('tableNum >>> ', this.tableNum)
+    },
+    fenpei () {
+      // console.log('开始分配病房')
+      this.$router.push('/SearchEmptyRoom')
+    }
   },
   components: {
 
@@ -267,7 +293,7 @@ h5 {
 .body {
   height: calc(100vh);
   padding: 1px;
-  background: url("../../assets/img/diagnosis3.png") no-repeat center center
+  background: url('../../assets/img/diagnosis3.png') no-repeat center center
     fixed;
   background-size: 100%;
 }

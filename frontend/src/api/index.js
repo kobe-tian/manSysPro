@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-const domain = 'https://d9c27533.ngrok.io'
+const domain = 'https://8b0b9f95.ngrok.io'
 
 export default {
   mLogin (params) {
@@ -10,5 +10,11 @@ export default {
   },
   dLogin (params) {
     return request.post(domain + '/doctor_login', params)
+  },
+  ruyuandengji (params) {
+    return request.get(domain + '/patient_manage', params)
+  },
+  fenpeibingfang (params) {
+    return request.get(domain + '/distribute_room', params)
   }
 }

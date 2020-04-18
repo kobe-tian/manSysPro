@@ -1,14 +1,11 @@
 <template>
   <div class="body">
     <div>
-      <form style="float: left;">
-        <div class="hello">
-          <input type="submit" class="btn-info" value="入院登记" formaction="/patient_manage/"
-            formmethod="post"><br><br><br><br>
-          <input type="submit" class="btn-info b " value="出院登记" formaction="/out_hospital/" formmethod="get">
-        </div><br><br><br><br><br><br><br><br><br><br>
-        <input type="submit" class="bfd btn-success a" value="返回上一级" formaction="/return1/" formmethod="get">
-      </form>
+      <div class="hello">
+        <input type="button" class="btn-info" value="入院登记" @click="ruyuandengji"><br><br><br><br>
+        <input type="button" class="btn-info b " value="出院登记" formaction="/out_hospital/" formmethod="get">
+      </div><br><br><br><br><br><br><br><br><br><br>
+      <input type="submit" class="bfd btn-success a" value="返回上一级" formaction="/return1/" formmethod="get">
     </div>
   </div>
 </template>
@@ -73,7 +70,7 @@ input {
 .body {
   height: calc(100vh);
   padding: 1px;
-  background: url("../../assets/img/out.png") no-repeat center center fixed;
+  background: url('../../assets/img/out.png') no-repeat center center fixed;
   background-size: 100%;
 }
 .a {

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="body">
+    <div class="hello">
       <form>
         <span>请选择科室名称:</span>
         <select name="patient_dept" class="b1">
@@ -14,10 +14,9 @@
           <th>房&nbsp;&nbsp;&nbsp;号</th>
           <th>入住&nbsp;&nbsp;&nbsp;状况</th>
         </tr>
-        <!--循环user_results中的数据输出 -->
         <tr>
-          <td>dept_room_info.room_id</td>
-          <td>dept_room_info.room_patient_name</td>
+          <td>dept</td>
+          <td>dept</td>
 
         </tr>
       </table><br>
@@ -42,7 +41,7 @@ export default {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -51,7 +50,13 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.fenpeibingfang({
+        diagnosis_result: '123'
+      }).then(res => {
+        console.log('res >>> ', res)
+      })
+    }
   },
   components: {
 
@@ -60,24 +65,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
-div {
+.hello {
   height: 340px;
   width: 360px;
-  margin-top: 200px;
-  margin-left: 500px;
-  padding-left: 100px;
-  padding-top: 60px;
+  padding: 100px;
   background-color: steelblue;
   border-radius: 30px;
+  margin: 100px auto;
 }
 
-body {
-  background: url("../../assets/img/5154.jpg_wh300.jpg") no-repeat;
-  background-size: 100%;
+.body {
+  height: calc(100vh);
+  padding: 1px;
+  background: url('../../assets/img/5154.jpg_wh300.jpg') no-repeat;
+  background-size: auto 100%;
 }
 
 table {
   border-radius: 5px;
+  margin: 0 auto;
 }
 
 table th {
@@ -103,7 +109,7 @@ table td {
   height: 30px;
   background-color: #d3d3d3;
   border-radius: 5px;
-  font-family: "微软雅黑 Light";
+  font-family: '微软雅黑 Light';
   font-size: 16px;
 }
 
@@ -112,7 +118,7 @@ table td {
   height: 30px;
   background-color: #d3d3d3;
   border-radius: 5px;
-  font-family: "微软雅黑 Light";
+  font-family: '微软雅黑 Light';
   font-size: 16px;
 }
 
@@ -122,12 +128,12 @@ table td {
   background-color: #d3d3d3;
   border-radius: 5px;
   margin-left: 180px;
-  font-family: "微软雅黑 Light";
+  font-family: '微软雅黑 Light';
   font-size: 16px;
 }
 
 span {
-  font-family: "Adobe 宋体 Std L";
+  font-family: 'Adobe 宋体 Std L';
   font-size: 18px;
   color: white;
 }
