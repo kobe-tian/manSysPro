@@ -117,7 +117,7 @@ body{
     {% csrf_token %}
     <h5>目前已有{{ length }}人挂号</h5>
     请选择该病人的问诊号：
-    <select name="patient_id"class="a">
+    <select name="patient_id" class="a">
         <option>{{ patient_id }}</option>
     {% for patient_all_i in patient_all_id %}
         <option>{{patient_all_i.id}}</option>
