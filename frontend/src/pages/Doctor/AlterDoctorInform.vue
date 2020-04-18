@@ -3,17 +3,17 @@
     <form>
       <h2>医生信息修改</h2>
       <div id="bg">
-        编号：<input type="text" value="doctor_id" readonly><br>
-        姓名：<input type="text" value="doctor_name" readonly><br>
-        性别：<input type="text" value="doctor_sex" readonly><br>
-        科室：<input type="text" value="doctor_dept.dept_name" readonly><br>
-        年龄：<input type="text" value="doctor_age" name="age"><br>
-        电话：<input type="text" value="doctor_telep" name="telep"><br>
-        职位：<input type="text" value="doctor_position" name="position"><br>
+        编号：<input type="text" :value="infos.doctor_id" readonly><br>
+        姓名：<input type="text" :value="infos.doctor_name" readonly><br>
+        性别：<input type="text" :value="infos.doctor_sex" readonly><br>
+        科室：<input type="text" :value="infos.dept_name" readonly><br>
+        年龄：<input type="text" v-model="infos.doctor_age" name="age"><br>
+        电话：<input type="text" v-model="infos.doctor_telep" name="telep"><br>
+        职位：<input type="text" v-model="infos.doctor_position" name="position"><br>
       </div>
       <div class="btn">
-        <input type="submit" value="确认修改" formaction="/back3/" formmethod="post" onclick="alert('修改成功')">
-        <input type="submit" value="返回上一级" formaction="/back3/" formmethod="get">
+        <input type="button" value="确认修改" @click="queren">
+        <input type="button" value="返回上一级" @click="back">
       </div>
     </form>
   </div>
@@ -26,14 +26,22 @@ export default {
   },
   data () {
     return {
-
+      infos: {
+        dept_name: "神经外科",
+        doctor_age: "24",
+        doctor_id: "abc123456",
+        doctor_name: "abc123456",
+        doctor_position: "adwdadwadwawd",
+        doctor_sex: "男",
+        doctor_telep: "17316289569"
+      }
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -42,7 +50,26 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.showDoctorInfo().then(res => {
+        console.log(res)
+        this.infos = res.data
+      })
+    },
+    queren () {
+      console.log(this.infos)
+      this.$api.changeDoctorInfo({
+        age: this.infos.doctor_age,
+        position: this.infos.doctor_position,
+        telep: this.infos.doctor_telep
+      }).then(res => {
+        console.log(res)
+      })
+    },
+    back(){
+      console.log('hello')
+      this.$router.go(-1)
+    }
   },
   components: {
 

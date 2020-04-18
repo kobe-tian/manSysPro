@@ -1,5 +1,6 @@
 <template>
   <div class="body">
+    <div class="title">工作表</div>
     <div class="div1">
       <table border="0">
         <tr class="th1 ">
@@ -9,18 +10,15 @@
           <th>工作时间</th>
         </tr>
         <!--循环user_results中的数据输出 -->
-        <tr class="th2">
-          <th>work_time_result.work_doctor_dept.dept_name </th>
-          <th>work_time_result.work_doctor_name </th>
-          <th>work_time_result.work_doctor_id.doctor_id</th>
-          <th>work_time_result.work_time</th>
+        <tr class="th2" v-for="(item,index) in work_time_results" :key="index">
+          <th>{{item.dept_name}}</th>
+          <th>{{item.work_doctor_name}}</th>
+          <th>{{item.doctor_id}}</th>
+          <th>{{item.work_time}}</th>
         </tr>
       </table>
     </div>
-
-    <form>
-      <input type="submit" class="btn btn-success" value="返回上一级" formaction="/back4/" formmethod="post">
-    </form>
+    <input type="button" class="btn btn-success" value="返回上一级" @click="back">
   </div>
 </template>
 
@@ -31,14 +29,21 @@ export default {
   },
   data () {
     return {
-
+      work_time_results: [
+        {
+          dept_name: "神经外科",
+          doctor_id: "abc123456",
+          work_doctor_name: "123456",
+          work_time: "12345"
+        }
+      ]
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -47,7 +52,15 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.checkKeShiWorkTable().then(res => {
+        console.log(res)
+        this.work_time_results = res.data.work_time_results
+      })
+    },
+    back () {
+      this.$router.go(-1)
+    }
   },
   components: {
 
@@ -57,9 +70,15 @@ export default {
 
 <style scoped lang="scss">
 .body {
+  padding: 1px;
+  height: calc(100vh);
   background: url("../../assets/img/QQ图片20190327153120.jpg") no-repeat center;
-  background-size: 100%;
+  background-size: 100% 100%;
   font-size: 20px;
+  .title {
+    font-size: 32px;
+    padding-top: 100px;
+  }
 }
 
 h2 {
@@ -68,8 +87,7 @@ h2 {
 }
 
 table {
-  margin-left: 35%;
-  margin-top: 4%;
+  margin: 100px auto;
   border: 1px solid #63b8ff;
 }
 

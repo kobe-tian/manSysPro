@@ -4,28 +4,16 @@
     <div class="hello">
       <table>
         <tr>
-          <th>医生编号</th>
-          <th>姓名</th>
-          <th>性别</th>
-          <th>年龄</th>
-          <th>电话</th>
-          <th>职位</th>
-          <th>科室</th>
+          <th v-for="(item,index) in result_keys" :key="index">{{item}}</th>
         </tr>
         <tr>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
+          <th v-for="(item,index) in result_values" :key="index">{{item}}</th>
         </tr>
       </table>
       <form class="f">
-        <input type="submit" class="a1 btn-info" value="修改医生信息" formaction="/alter/" formmethod="get">
-        <input type="submit" class="a2 btn-info" value="返回上一级" formaction="/search_d/">
-        <input type="submit" class="a1 btn-info" value="查看工作时间" formaction="/work2/" formmethod="get">
+        <input type="button" class="a1 btn-info" value="修改医生信息" @click="setDoctorMsg">
+        <input type="button" class="a2 btn-info" value="返回上一级" @click="back">
+        <input type="button" class="a1 btn-info" value="查看工作时间" @click="checkWorkTime">
       </form>
     </div>
   </div>
@@ -38,14 +26,15 @@ export default {
   },
   data () {
     return {
-
+      result_keys: [],
+      result_values: []
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -54,7 +43,29 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.yishengName({
+        doctor_name: this.$route.query.name
+      }).then(res => {
+        console.log(res)
+        if (res.data.result_keys) {
+          this.result_keys = res.data.result_keys
+          this.result_values = res.data.result_values
+        } else {
+          alert('没有该医生的信息！')
+          this.$router.push('/SearchDoctorChoose')
+        }
+      })
+    },
+    back () {
+      this.$router.push('/SearchDoctorChoose')
+    },
+    setDoctorMsg () {
+      this.$router.push('/AlterDoctorInform')
+    },
+    checkWorkTime () {
+      this.$router.push('/UserWork')
+    }
   },
   components: {
 

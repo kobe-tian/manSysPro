@@ -55,15 +55,15 @@ export default {
       // let that = this
       console.log('form >>> ', this.form)
       const { username, password } = this.form
-      let data = {
-        api: 'https://c4554896.ngrok.io/new_login',
-        params: {
-          user_name: username,
-          password: password
-        }
+      let params = {
+        user_name: username,
+        password: password
       }
-      this.$api.mLogin(data.params).then(res => {
+      this.$api.mLogin(params).then(res => {
         console.log('res >>> ', res)
+        if(res.data.status === 0){
+          this.$router.push('/Choose')
+        }
       })
     },
     dLogin () {
@@ -105,10 +105,10 @@ export default {
   height: calc(100vh);
   padding: 1px;
   background: #eee;
-  background: url('../../assets/img/small.jpg') no-repeat center center fixed;
+  background: url("../../assets/img/small.jpg") no-repeat center center fixed;
   background-size: 100% 100%;
   .title {
-    font-family: 'Roboto', 'Lucida Grande', Verdana, Arial, sans-serif;
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
     font-size: 60px;
     color: dodgerblue;
     text-align: center;

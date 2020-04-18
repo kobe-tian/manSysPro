@@ -6,47 +6,47 @@
     <table>
       <tr>
         <th>门诊号</th>
-        <td>{{ id }}</td>
+        <td>{{ form.deal_doctor_name }}</td>
       </tr>
       <tr>
         <th>姓名</th>
-        <td>{{ patient_name }}</td>
+        <td>{{ form.patient_name }}</td>
       </tr>
       <tr>
         <th>房号</th>
-        <td>{{ room_id }}</td>
+        <td>{{ form.room_id }}</td>
       </tr>
       <tr>
         <th>诊断结果</th>
-        <td>{{ diagnosis_result }}</td>
+        <td>{{ form.diagnosis_result }}</td>
       </tr>
       <tr>
         <th>用药详情</th>
-        <td>{{ medicine_detail }}</td>
+        <td>{{ form.medicine_detail }}</td>
       </tr>
       <tr>
         <th>医嘱</th>
-        <td>{{ doctor_suggestions }}</td>
+        <td>{{ form.doctor_suggestions }}</td>
       </tr>
     </table>
     <div id="tb">
       <table>
         <tr>
           <th>医生签名：</th>
-          <td>{{ deal_doctor_name }}</td>
+          <td>{{ form.deal_doctor_name }}</td>
         </tr>
         <tr>
           <th>时间：</th>
-          <td>{{ diagnosis_time }}</td>
+          <td>{{ form.diagnosis_time }}</td>
         </tr>
       </table>
     </div>
     <div id="foot">
       <div class="form">
-        <el-button>
+        <el-button @click="continuer">
           继续查询
         </el-button>
-        <el-button>
+        <el-button @click="back">
           返回主界面
         </el-button>
       </div>
@@ -61,14 +61,23 @@ export default {
   },
   data () {
     return {
-
+      form: {
+        deal_doctor_name: "1212.1212.12",
+        diagnosis_result: "良性",
+        diagnosis_time: "12121.121.121",
+        doctor_suggestions: "",
+        id: 1,
+        medicine_detail: "1、123  1盒↵2、123  3盒↵3、123  5盒↵",
+        patient_name: "abc",
+        room_id: "123",
+      }
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -77,7 +86,18 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.seeDetails().then(res => {
+        console.log(res)
+        this.form = res.data
+      })
+    },
+    continuer () {
+      this.$router.push('/SearchPatientChoose')
+    },
+    back () {
+      this.$router.push('/Choose')
+    }
   },
   components: {
 

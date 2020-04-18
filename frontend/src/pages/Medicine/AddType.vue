@@ -3,14 +3,12 @@
     <h2>添加药品</h2>
     <div>
       <div class="bg">
-        <div class="b1">请输入药品名称:<input type="text" name="m_name"></div><br>
-        <div class="b2">请输入添加数量:<input type="text" name="m_num"></div>
+        <div class="b1">请输入药品名称:<input type="text" name="m_name" v-model="name"></div><br>
+        <div class="b2">请输入添加数量:<input type="text" name="m_num" v-model="number"></div>
       </div>
       <div class="btn">
-        <p class="btn1 "><input type="submit" value="确认添加" class="btn-default" formaction="/add_medicine_type/"
-            formmethod="get" onclick="alert('添加成功')"></p>
-        <p class="btn1 "><input type="submit" value="返回上一级" class="btn-default" formaction="/medicine/" formmethod="get"
-            style="margin-top:30px">
+        <p class="btn1 "><input type="submit" value="确认添加" class="btn-default" @click="add"></p>
+        <p class="btn1 "><input type="submit" value="返回上一级" class="btn-default" style="margin-top:30px" @click="back">
         </p>
       </div>
     </div>
@@ -24,7 +22,8 @@ export default {
   },
   data () {
     return {
-
+      name: '',
+      number: ''
     }
   },
   computed: {
@@ -40,7 +39,18 @@ export default {
 
   },
   methods: {
-
+    add () {
+      this.$api.addNewM({
+        m_name: this.name,
+        m_num: this.number
+      }).then(res => {
+        console.log(res)
+        alert('添加成功')
+      })
+    },
+    back(){
+      this.$router.go(-1)
+    }
   },
   components: {
 

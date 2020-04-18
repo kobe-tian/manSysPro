@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-    {#<div id="bg">#}
     <div id="four">
       <h2>欢迎进入管理员界面</h2><br />
       <p>
@@ -9,13 +8,13 @@
     </div>
 
     <form action="" class="f">
-      <input type="submit" class="three btn-info" value="挂号" formmethod="post" formaction="/guahao/">
+      <input type="button" class="three btn-info" value="挂号" @click="go('/Insert')">
       <br><br>
-      <input type="submit" class="three btn-info" value="查询病人" formmethod="get" formaction="/search_p/">
+      <input type="submit" class="three btn-info" value="查询病人" @click="go('/SearchPatientChoose')">
       <br><br>
-      <input type="submit" class="three btn-info" value="查询医生" formmethod="get" formaction="/search_d/">
+      <input type="submit" class="three btn-info" value="查询医生" @click="go('/SearchDoctorChoose')">
       <br><br>
-      <input type="submit" class="three btn-info" value="药品管理" formmethod="get" formaction="/medicine/">
+      <input type="submit" class="three btn-info" value="药品管理" @click="go('/MedicineManage')">
     </form>
     <form action="/new_login/">
       <input type="submit" class="two btn-info" value="退出">
@@ -47,7 +46,9 @@ export default {
 
   },
   methods: {
-
+    go (url) {
+      this.$router.push(url)
+    }
   },
   components: {
 

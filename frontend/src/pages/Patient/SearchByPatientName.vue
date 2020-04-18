@@ -4,27 +4,15 @@
     <div class="hello">
       <table>
         <tr>
-          <th>医生编号</th>
-          <th>姓名</th>
-          <th>性别</th>
-          <th>年龄</th>
-          <th>电话</th>
-          <th>职位</th>
-          <th>科室</th>
+          <th v-for="(item,index) in result_keys" :key="index">{{item}}</th>
         </tr>
         <tr>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
-          <td>hello</td>
+          <th v-for="(item,index) in result_values" :key="index">{{item}}</th>
         </tr>
       </table>
       <form class="f form">
-        <input type="submit" value="返回上一级" class="a2 btn-info" formaction="/search_p/">
-        <input type="submit" value="查看就诊详情" class="a1 btn-info" formaction="/diagnosis_detail/" formmethod="get">
+        <input type="button" value="返回上一级" class="a2 btn-info" @click="back">
+        <input type="button" value="查看就诊详情" class="a1 btn-info" @click="seeDetails">
       </form>
     </div>
   </div>
@@ -37,14 +25,15 @@ export default {
   },
   data () {
     return {
-
+      result_keys: [],
+      result_values: []
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -53,7 +42,27 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.searchByPName({
+        patient_name: this.$route.query.name
+      }).then(res => {
+        console.log(res)
+        if (res.data.result_keys) {
+          this.result_keys = res.data.result_keys
+          this.result_values = res.data.result_values
+        } else {
+          alert('没有改病人信息！')
+          this.$router.push('/SearchPatientChoose')
+        }
+      })
+    },
+    back () {
+      this.$router.push('/SearchPatientChoose')
+    },
+    seeDetails () {
+      // this.$router.push(`/DiagnosisDetail?name=${this.$route.query.name}`)
+      this.$router.push(`/DiagnosisDetail`)
+    }
   },
   components: {
 

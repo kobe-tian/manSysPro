@@ -5,48 +5,46 @@
       <div class="di">
         <div class="b1">
           <span>请选择科室名称</span>
-          <select name="work_dept" class="x1">
-            <option> work_dept </option>
-            <option value="dept.id">dept.dept_name</option>
+          <select name="work_dept" class="x1" @change="changeSelect1">
+            <option v-for="(item,index) in depts" :key="index" :value="item.id"> {{item.name}} </option>
           </select>
-          <input type="submit" value="查询" formaction="/work_time_search/" formmethod="post" class="btn2">
+          <input type="button" value="查询" class="btn2" @click="searchName">
         </div>
         <div class="b2">
           <span>请选择医生编号</span>
-          <select name="doctor_id" class="x1">
-            <option> doctor_i </option>
-            <option value="doctor_result.id">doctor_result.doctor_id</option>
+          <select name="doctor_id" class="x1" @change="changeSelect2">
+            <option v-for="(item,index) in doctor_results" :key="index" :value="item.id"> {{item.doctor_id}} </option>
           </select>
-          <input type="submit" value="查询" formaction="/return5/" formmethod="post" class="btn2">
+          <input type="button" value="查询" class="btn2" @click="searchNum">
         </div>
       </div>
       <div class="tabler">
         <div class="tab">
-          <el-table :data="tableData" border style="width: 500px">
-            <el-table-column prop="date" label="科室">
+          <el-table :data="tableData1" border style="width: 500px">
+            <el-table-column prop="dept_name" label="科室">
             </el-table-column>
-            <el-table-column prop="name" label="医生姓名">
+            <el-table-column prop="work_doctor_name" label="医生姓名">
             </el-table-column>
-            <el-table-column prop="address" label="医生编号">
+            <el-table-column prop="doctor_id" label="医生编号">
             </el-table-column>
-            <el-table-column prop="address" label="工作时间">
+            <el-table-column prop="work_time" label="工作时间">
             </el-table-column>
           </el-table>
         </div>
         <div class="tab">
-          <el-table :data="tableData" border style="width: 500px">
-            <el-table-column prop="date" label="科室">
+          <el-table :data="tableData2" border style="width: 500px">
+            <el-table-column prop="dept_name" label="科室">
             </el-table-column>
-            <el-table-column prop="name" label="医生姓名">
+            <el-table-column prop="work_doctor_name" label="医生姓名">
             </el-table-column>
-            <el-table-column prop="address" label="医生编号">
+            <el-table-column prop="doctor_id" label="医生编号">
             </el-table-column>
-            <el-table-column prop="address" label="工作时间">
+            <el-table-column prop="work_time" label="工作时间">
             </el-table-column>
           </el-table>
         </div>
       </div>
-      <input type="submit" value="返回上一级" class="btn1" formaction="/return5/" formmethod="get">
+      <input type="button" value="返回上一级" class="btn1" @click="go('/DoctorChoose')">
     </form>
   </div>
 </template>
@@ -58,30 +56,21 @@ export default {
   },
   data () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      depts: [],
+      doctor_results: [],
+      keywords1: '',
+      keywords2: '',
+      tableData1: [
+      ],
+      tableData2: [
+      ]
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -90,7 +79,57 @@ export default {
 
   },
   methods: {
+    init () {
+      this.$api.initDWT().then(res => {
+        console.log(res)
+        this.depts = res.data.depts;
+        this.doctor_results = res.data.doctor_results
 
+        this.keywords1 = res.data.depts[0].id
+        this.keywords2 = res.data.doctor_results[0].id
+      })
+    },
+    searchName () {
+      this.$api.searchName({
+        work_dept: this.keywords1
+      }).then(res => {
+        console.log(res)
+        res.data.work_time_results.forEach(element => {
+          this.tableData1.push({
+            dept_name: element.dept_name,
+            doctor_id: element.doctor_id,
+            work_doctor_name: element.work_doctor_name,
+            work_time: element.work_time
+          })
+        });
+      })
+    },
+    searchNum () {
+      this.$api.searchNum({
+        doctor_id: this.keywords2
+      }).then(res => {
+        console.log(res)
+        res.data.work_time.forEach(element => {
+          this.tableData2.push({
+            dept_name: element.dept_name,
+            doctor_id: element.doctor_id,
+            work_doctor_name: element.work_doctor_name,
+            work_time: element.work_time
+          })
+        })
+      })
+    },
+    go (url) {
+      this.$router.push(url)
+    },
+    changeSelect1 (select) {
+      let value = select.srcElement.value
+      console.log('select >>> ', select.srcElement.value)
+    },
+    changeSelect2 (select) {
+      let value = select.srcElement.value
+      console.log('select >>> ', select.srcElement.value)
+    },
   },
   components: {
 

@@ -4,24 +4,23 @@
       <form>
         <span>请选择科室名称:</span>
         <select name="patient_dept" class="b1">
-          <option> patients </option>
-          <option value="dept.id">dept.dept_name</option>
+          <option v-for="(item,key) in depts" :key="key" :value="item.id" @change="selectChange"> {{item.name}}
+          </option>
         </select>
-        <input type="submit" value="查询" class="b2" formaction="/distribute_room/" formmethod="post"><br><br>
+        <input type="button" value="查询" class="b2" @click="searchRoom(searchID)"><br><br>
       </form>
       <table>
         <tr>
           <th>房&nbsp;&nbsp;&nbsp;号</th>
           <th>入住&nbsp;&nbsp;&nbsp;状况</th>
         </tr>
-        <tr>
-          <td>dept</td>
-          <td>dept</td>
-
+        <tr v-for="(item,key) in dept_room_infos" :key="key">
+          <td>{{item.room_id}}</td>
+          <td>{{item.room_name}}</td>
         </tr>
       </table><br>
       <form>
-        <input type="submit" value="返回上一级" class="b3" formaction="/return3/" formmethod="get">
+        <input type="button" value="返回上一级" class="b3" @click="back">
       </form>
     </div>
   </div>
@@ -34,7 +33,14 @@ export default {
   },
   data () {
     return {
-
+      searchID: null,
+      dept_room_infos: [],
+      depts: [
+        {
+          id: 1,
+          name: '神经'
+        }
+      ]
     }
   },
   computed: {
@@ -55,7 +61,31 @@ export default {
         diagnosis_result: '123'
       }).then(res => {
         console.log('res >>> ', res)
+        if (res.status === 200) {
+          this.depts = res.data.depts
+          this.searchID = res.data.depts[0].id
+          console.log('this.depts >>> ', this.depts)
+        }
       })
+    },
+    // 查询空房
+    searchRoom (id) {
+      this.$api.chaxunkongfang({
+        patient_dept: id
+      }).then(res => {
+        console.log('res >>> ', res)
+        if (res.status === 200) {
+          const { data } = res
+          this.dept_room_infos = data.dept_room_infos
+        }
+      })
+    },
+    selectChange (select) {
+      this.value = select.srcElement.value
+      console.log('select >>> ', select.srcElement.value)
+    },
+    back () {
+      this.$router.push('/Diagnosis')
     }
   },
   components: {
@@ -77,7 +107,7 @@ export default {
 .body {
   height: calc(100vh);
   padding: 1px;
-  background: url('../../assets/img/5154.jpg_wh300.jpg') no-repeat;
+  background: url("../../assets/img/5154.jpg_wh300.jpg") no-repeat;
   background-size: auto 100%;
 }
 
@@ -109,7 +139,7 @@ table td {
   height: 30px;
   background-color: #d3d3d3;
   border-radius: 5px;
-  font-family: '微软雅黑 Light';
+  font-family: "微软雅黑 Light";
   font-size: 16px;
 }
 
@@ -118,7 +148,7 @@ table td {
   height: 30px;
   background-color: #d3d3d3;
   border-radius: 5px;
-  font-family: '微软雅黑 Light';
+  font-family: "微软雅黑 Light";
   font-size: 16px;
 }
 
@@ -128,12 +158,12 @@ table td {
   background-color: #d3d3d3;
   border-radius: 5px;
   margin-left: 180px;
-  font-family: '微软雅黑 Light';
+  font-family: "微软雅黑 Light";
   font-size: 16px;
 }
 
 span {
-  font-family: 'Adobe 宋体 Std L';
+  font-family: "Adobe 宋体 Std L";
   font-size: 18px;
   color: white;
 }

@@ -37,7 +37,7 @@ export default {
       this.$router.push('/DoctorSelect')
     },
     queryDuty () {
-      this.$router.push('/')
+      this.$router.push('/DoctorWorkTime')
     },
     quit () {
       this.$router.push('/')

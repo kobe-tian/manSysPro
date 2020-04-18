@@ -3,13 +3,12 @@
     <h2>添加药品</h2>
     <div>
       <div class="bg">
-        <div class="b1">名称：<input value=" medicine_ " type="text" readonly></div><br>
-        <div class="b2">请输入您要取的数量：<input type="text" value=" num " name="number"></div>
+        <div class="b1">名称：<input :value="this.$route.query.name" type="text" readonly></div><br>
+        <div class="b2">请输入您要取的数量：<input type="text" v-model="number" name="number"></div>
       </div>
       <div class="btn">
-        <p class="btn1 btn-default"><input type="submit" value="确认" onclick="alert('添加药品成功！')"
-            formaction="/add_medicine/" formmethod="post"></p>
-        <p class="btn1 btn-default"><input type="submit" value="返回上一级" name="" formaction="/back1/" formmethod="get" style="margin-top:30px">
+        <p class="btn1 btn-default"><input type="button" value="确认" @click="tianyao"></p>
+        <p class="btn1 btn-default"><input type="button" value="返回上一级" name="" style="margin-top:30px" @click="back">
         </p>
       </div>
     </div>
@@ -23,7 +22,7 @@ export default {
   },
   data () {
     return {
-
+      number: 0
     }
   },
   computed: {
@@ -39,7 +38,17 @@ export default {
 
   },
   methods: {
-
+    tianyao () {
+      this.$api.tianyao({
+        number: this.number
+      }).then(res => {
+        console.log(res)
+        alert('添加成功！')
+      })
+    },
+    back () {
+      this.$router.go(-1)
+    }
   },
   components: {
 

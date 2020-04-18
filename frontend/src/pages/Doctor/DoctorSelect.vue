@@ -2,10 +2,10 @@
   <div class="body">
     <div>
       <div class="hello">
-        <input type="button" class="btn-info" value="入院登记" @click="ruyuandengji"><br><br><br><br>
-        <input type="button" class="btn-info b " value="出院登记" formaction="/out_hospital/" formmethod="get">
+        <input type="button" class="btn-info" value="入院登记" @click="go('Diagnosis')"><br><br><br><br>
+        <input type="button" class="btn-info b " value="出院登记" @click="go('OutHospitalRegist')">
       </div><br><br><br><br><br><br><br><br><br><br>
-      <input type="submit" class="bfd btn-success a" value="返回上一级" formaction="/return1/" formmethod="get">
+      <input type="submit" class="bfd btn-success a" value="返回上一级" @click="go('DoctorChoose')">
     </div>
   </div>
 </template>
@@ -33,14 +33,8 @@ export default {
 
   },
   methods: {
-    ruyuandengji () {
-      this.$router.push('/Diagnosis')
-    },
-    chuyuandengji () {
-
-    },
-    back () {
-
+    go (url) {
+      this.$router.push(url)
     }
   },
   components: {
@@ -70,7 +64,7 @@ input {
 .body {
   height: calc(100vh);
   padding: 1px;
-  background: url('../../assets/img/out.png') no-repeat center center fixed;
+  background: url("../../assets/img/out.png") no-repeat center center fixed;
   background-size: 100%;
 }
 .a {

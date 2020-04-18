@@ -6,15 +6,15 @@
       </div>
       <div class="inf">
         <h3>所有药品信息表</h3>
-        <input type="submit" value="添加新药材" class="tian btn-default">
+        <input type="button" value="添加新药材" class="tian btn-default" @click="addNewMedicine">
         <table border="1">
           <tr>
             <td>药&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;称</td>
             <td>药&nbsp;品&nbsp;数&nbsp;量</td>
           </tr>
-          <tr>
-            <td> name </td>
-            <td> num </td>
+          <tr v-for="(item,index) in medicine_inform" :key="index">
+            <td> {{item.medicine_name}} </td>
+            <td> {{item.medicine_num}} </td>
           </tr>
         </table>
       </div>
@@ -23,47 +23,52 @@
 
         <p>请输入药品名称：</p><br>
         <form action="/search_medicine/" method="post">
-          <input type="text" name="medicine_name" value=" medicine " formmethod="post"
-            style="font-size: 18px ;width: 150px">
-          <input type="submit" value="查找" class="btn0 btn-default">
+          <input type="text" name="medicine_name" v-model="keyword" style="font-size: 18px ;width: 150px">
+          <input type="button" value="查找" class="btn0 btn-default" @click="searchM">
         </form>
         <div class="hjk">
-          <input type="submit" value="取药" class="btn1 btn-default" formaction="/add_medicine/" formmethod="get"
-            id="btnt">
-          <input type="submit" value="添加" class="btn1 btn-default" formaction="/add_medicine/" formmethod="get"
-            id="btnt">
+          <input type="button" value="取药" class="btn1 btn-default" id="btnt" @click="quyao">
+          <input type="button" value="添加" class="btn1 btn-default" id="btnt" @click="tianjia">
         </div>
-        <table border="1" class="b">
+        <table border="1" :class="cals">
           <tr>
-            <td> result_key </td>
-            <td> result_key </td>
+            <td> 药品名称 </td>
+            <td> 药品数量 </td>
           </tr>
           <tr>
-            <td> result_value </td>
-            <td> result_value </td>
+            <td> {{result_values[0]}} </td>
+            <td> {{result_values[1]}} </td>
           </tr>
         </table>
       </div>
     </div>
-    <input type="submit" value="返回上一级" class="btn2 btn-default" />
+    <input type="button" value="返回上一级" class="btn2 btn-default" @click="back" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-
   },
   data () {
     return {
-
+      result_values: [1, 2],
+      medicine_inform: [
+        {
+          medicine_name: "123",
+          medicine_num: 123458167
+        }
+      ],
+      keyword: '',
+      medicine: null,
+      cals: 'b hidden'
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -72,7 +77,44 @@ export default {
 
   },
   methods: {
-
+    back () {
+      this.$router.go(-1)
+    },
+    go (url) {
+      this.$router.push(url)
+    },
+    addNewMedicine () {
+      this.go('/AddType')
+    },
+    init () {
+      this.$api.medicine().then(res => {
+        console.log(res)
+        this.medicine_inform = res.data.medicine_inform
+      })
+    },
+    searchM () {
+      this.$api.searchMedicine({
+        medicine_name: this.keyword
+      }).then(res => {
+        console.log(res)
+        this.medicine = res.data.medicine
+        console.log(this.medicine)
+        this.result_values = res.data.result_values
+        console.log('result_values >>> ', this.result_values)
+        this.cals = 'b'
+      })
+    },
+    quyao () {
+      if (this.medicine !== null) {
+        this.go(`/TakeMedicine?name=${this.medicine}`)
+      }
+      console.log(this.medicine)
+    },
+    tianjia () {
+      if (this.medicine !== null) {
+        this.go(`/AddMedicine?name=${this.medicine}`)
+      }
+    }
   },
   components: {
 
@@ -81,6 +123,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.hidden {
+  display: none;
+}
 .hjk {
   margin-top: 30px;
   width: 323px;

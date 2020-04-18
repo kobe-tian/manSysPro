@@ -12,20 +12,20 @@
           <th><span>科&nbsp;&nbsp;&nbsp;室</span></th>
           <!--定义表头单元格应该横跨的列数-->
         </tr>
-        <tr>
+        <tr v-for="(item,index) in patient_infos" :key="index">
           <!--循环user_results中的数据输出 -->
-          <td><span> patient_info.id </span></td>
-          <td><span> patient_info.patient_name </span></td>
-          <td><span> patient_info.patient_sex </span></td>
-          <td><span> patient_info.patient_age </span></td>
-          <td><span> patient_info.patient_telep </span></td>
-          <td><span> patient_info.patient_dept.dept_name</span></td>
+          <td>{{item.id}}</td>
+          <td>{{item.patient_name}}</td>
+          <td>{{item.patient_sex}}</td>
+          <td>{{item.patient_age}}</td>
+          <td>{{item.patient_telep}}</td>
+          <td>{{item.dept_name}}</td>
           <!--定义表头单元格应该横跨的列数-->
         </tr>
       </table>
       <form method="post" class="f">
-        <input type="submit" class="a2 btn-info" value="继续查找" formaction="/search_p/" formmethod="post">
-        <input type="submit" class="a1 btn-info" value="返回首页" formaction="/choose1/" formmethod="post">
+        <input type="button" class="a2 btn-info" value="继续查找" @click="continuer">
+        <input type="button" class="a1 btn-info" value="返回首页" @click="back">
       </form>
     </div>
   </div>
@@ -38,14 +38,14 @@ export default {
   },
   data () {
     return {
-
+      patient_infos: []
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -54,7 +54,25 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.searchDept({
+        patient_dept: this.$route.query.id
+      }).then(res => {
+        console.log(res)
+        if (res.data.patient_infos) {
+          this.patient_infos = res.data.patient_infos
+        } else {
+          alert('该部门没有人员信息！')
+          this.$router.push('/SearchPatientChoose')
+        }
+      })
+    },
+    continuer () {
+      this.$router.push('/SearchPatientChoose')
+    },
+    back () {
+      this.$router.push('/Choose')
+    }
   },
   components: {
 

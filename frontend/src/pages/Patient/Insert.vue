@@ -3,25 +3,26 @@
     <div class="div1">
       <form>
         <h2>挂号单</h2>
-        姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:<input class="input1" name="patient_name"><br><br>
+        姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:<input class="input1" name="patient_name"
+          v-model="form.patient_name"><br><br>
 
-        年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:<input class="input1" name="patient_age"><br><br>
+        年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:<input class="input1" name="patient_age"
+          v-model="form.patient_age"> <br><br>
 
-        身份证号:<input class="input1" name="patient_idcard"><br><br>
+        身份证号:<input class="input1" name="patient_idcard" v-model="form.patient_idcard"><br><br>
 
-        联系电话:<input class="input1" name="patient_telep"><br><br>
+        联系电话:<input class="input1" name="patient_telep" v-model="form.patient_telep"><br><br>
         性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:
-        <select class="select01" name="patient_sex">
-          <option>女</option>
-          <option>男</option>
+        <select class="select01" name="patient_sex" @change="changeSelect1">
+          <option value="女">女</option>
+          <option value="男">男</option>
         </select><br><br>
         科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;室:
-        <select class="select01" name="patient_dept">
-          <option value="dept.id">dept.dept_name</option>
+        <select class="select01" name="patient_dept" @change="changeSelect2">
+          <option v-for="(item,index) in depts" :value="item.id" :key="index">{{item.name}}</option>
         </select><br><br>
-        <input class="input02 " type="submit" value="打印挂号单" onclick="alert('打印成功！')" formaction="/add_patient/"
-          formmethod="post">
-        <input class="input02" type="submit" value="返回上一级" formaction="/add_patient/" formmethod="get">
+        <input class="input02 " type="button" value="打印挂号单" @click="print">
+        <input class="input02" type="button" value="返回上一级">
       </form>
     </div>
   </div>
@@ -34,14 +35,22 @@ export default {
   },
   data () {
     return {
-
+      depts: [],
+      form: {
+        patient_name: '',
+        patient_sex: '',
+        patient_age: '',
+        patient_telep: '',
+        patient_idcard: '',
+        patient_dept: ''
+      }
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -50,7 +59,32 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.guahao().then(res => {
+        console.log(res)
+        this.depts = res.data.depts
+        this.form.patient_sex = '女'
+        this.form.patient_dept = res.data.depts[0].id
+      })
+    },
+    print () {
+      this.$api.addPatient(this.form).then(res => {
+        console.log(res)
+        alert('打印成功！')
+        this.$router.push(`/PrintPatient?id=${res.data.id}`)
+      })
+      // console.log(this.form)
+    },
+    changeSelect1 (select) {
+      let value = select.srcElement.value
+      this.form.patient_age = value
+      console.log('select >>> ', select.srcElement.value)
+    },
+    changeSelect2 (select) {
+      let value = select.srcElement.value
+      this.form.patient_dept = value
+      console.log('select >>> ', select.srcElement.value)
+    },
   },
   components: {
 

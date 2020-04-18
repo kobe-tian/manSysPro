@@ -3,14 +3,12 @@
     <h2>取药</h2>
     <div>
       <div class="bg">
-        <div class="b1">名称：<input value=" medicine_ " type="text" readonly></div>
-        <div class="b2">请输入您要取的数量：<input type="text" value=" num " name="number"></div>
+        <div class="b1">名称：<input :value="name" type="text" readonly></div>
+        <div class="b2">请输入您要取的数量：<input type="text" v-model="num" name="number"></div>
       </div>
       <div class="btn">
-        <p class="btn1 btn-default"><input type="submit" value="确认" onclick="alert('取药成功')" formaction="/take_medicine/"
-            formmethod="post"></p>
-        <p class="btn1 btn-default"><input type="submit" value="返回上一级" name="" formaction="/back1/" formmethod="get"
-            style="margin-top: 20px;">
+        <p class="btn1 btn-default"><input type="submit" value="确认" @click="queren"></p>
+        <p class="btn1 btn-default"><input type="submit" value="返回上一级" style="margin-top: 20px;" @click="back">
         </p>
       </div>
     </div>
@@ -24,14 +22,15 @@ export default {
   },
   data () {
     return {
-
+      name: '',
+      num: 0
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -40,7 +39,20 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.name = this.$route.query.name
+    },
+    back () {
+      this.$router.go(-1)
+    },
+    queren () {
+      this.$api.quyao({
+        number: this.num
+      }).then(res => {
+        console.log(res)
+        alert('取药成功！')
+      })
+    }
   },
   components: {
 

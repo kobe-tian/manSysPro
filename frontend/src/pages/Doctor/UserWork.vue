@@ -2,30 +2,29 @@
   <div class="body">
     <div id="header">
       <div class="pan">
-        请输入需要修改的时间：<input type="text" name="alter_value">
+        请输入需要修改的时间：<input type="text" name="alter_value" v-model="alter_value">
       </div>
       <div>
-        请输入修改之后的时间：<input type="text" name="alter_value_to">&nbsp;&nbsp;
-        <input type="submit" class="btn1 btn-info" value="修改" formaction="/alter_work_time/" formmethod="get"
-          onclick="alert('修改成功')">
+        请输入修改之后的时间：<input type="text" name="alter_value_to" v-model="alter_value_to">&nbsp;&nbsp;
+        <input type="button" class="btn1 btn-info" value="修改" @click="changeTime">
       </div>
     </div>
     <div class="tabler">
       <div>
         <el-table :data="tableData" border style="width: 500px">
-          <el-table-column prop="date" label="科室">
+          <el-table-column prop="dept_name" label="科室">
           </el-table-column>
-          <el-table-column prop="name" label="医生姓名">
+          <el-table-column prop="work_doctor_name" label="医生姓名">
           </el-table-column>
-          <el-table-column prop="address" label="医生编号">
+          <el-table-column prop="doctor_id" label="医生编号">
           </el-table-column>
-          <el-table-column prop="address" label="工作时间">
+          <el-table-column prop="work_time" label="工作时间">
           </el-table-column>
         </el-table>
       </div>
     </div>
     <div class="but">
-      <el-button>
+      <el-button @click="back">
         返回上一级
       </el-button>
     </div>
@@ -39,30 +38,16 @@ export default {
   },
   data () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      tableData: [],
+      alter_value: '',
+      alter_value_to: ''
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -71,7 +56,34 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.checkDoctorWord().then(res => {
+        console.log(res)
+        res.data.work_time_results.forEach(element => {
+          this.tableData.push(element)
+        });
+      })
+    },
+    back () {
+      this.$router.go(-1)
+    },
+    changeTime () {
+      this.$api.reviseDOTime({
+        alter_value: this.alter_value,
+        alter_value_to: this.alter_value_to
+      }).then(res => {
+        console.log(res)
+        if (res.status === 200) {
+          let arr = []
+          res.data.work_time_results.forEach(item => {
+            arr.push(item)
+          })
+          this.tableData = arr
+        } else {
+          alert('修改失败')
+        }
+      })
+    }
   },
   components: {
 

@@ -4,28 +4,28 @@
     <div class="hello">
       <form class="t">
         请选择科室名称:
-        <select name="patient_dept" class="d1">
-          <option value="dept.id">dept.dept_name</option>
+        <select name="patient_dept" class="d1" @change="changeSelect">
+          <option v-for="(item,key) in dept" :key="key" :value="item.id">{{item.name}}</option>
         </select>
-        <input type="submit" value="查询" formaction="/search_room/" formmethod="post" class="btn btn-default">
+        <input type="button" value="查询" class="btn btn-default" @click="search">
       </form>
       <table>
         <tr>
           <th>房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</th>
           <th>病&nbsp;房&nbsp;状&nbsp;况</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>空</td>
+        <tr v-for="(item,key) in tableList" :key="key">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
         </tr>
       </table>
       <form class="t">
-        请输入需要出院的病人的房号:<input type="text" name="out_id" class="d2">
-        <input type="submit" value="确认" formaction="/out_hospital/" formmethod="post" class="btn btn-default">
+        请输入需要出院的病人的房号:<input type="text" name="out_id" class="d2" v-model="typeRoom">
+        <input type="button" value="确认" class="btn btn-default" @click="roomConfirm">
       </form>
     </div>
     <form class="f">
-      <input type="submit" value="返回上一级" formaction="/return4/" formmethod="get" class="btn1 btn-default">
+      <input type="button" value="返回上一级" class="btn1 btn-default" @click="go('DoctorSelect')">
     </form>
   </div>
 </template>
@@ -37,14 +37,22 @@ export default {
   },
   data () {
     return {
-
+      keyword1: '初始化',
+      typeRoom: '请输入',
+      dept: [
+        {
+          name: '请稍等',
+          id: 1
+        },
+      ],
+      tableList: []
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -53,7 +61,38 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.keshimingcheng().then(res => {
+        console.log('res >> ', res)
+        this.dept = res.data.depts
+        this.keyword1 = res.data.depts[0].id
+      })
+    },
+    search () {
+      this.$api.keshimingchengSearch({
+        patient_dept: this.keyword1
+      }).then(res => {
+        console.log('res >> ', res)
+        this.tableList = res.data.dept_room_infos
+      })
+      console.log('查询' + this.keyword1)
+    },
+    changeSelect (select) {
+      let value = select.srcElement.value
+      this.keyword1 = select.srcElement.value
+      console.log('select >>> ', select.srcElement.value)
+    },
+    roomConfirm () {
+      this.$api.roomConfirm({
+        out_id: this.typeRoom
+      }).then(res => {
+        console.log('res >>> ', res)
+      })
+      console.log('确认点击')
+    },
+    go (url) {
+      this.$router.push(url)
+    }
   },
   components: {
 

@@ -13,22 +13,19 @@
           <th><span>科&nbsp;&nbsp;&nbsp;室</span></th>
           <!-- <td colspan="6"></td> -->
         </tr>
-        <tr>
-          <!--循环user_results中的数据输出 -->
-          <td><span> doctor_info.doctor_id </span></td>
-          <td><span> doctor_info.doctor_name </span></td>
-          <td><span> doctor_info.doctor_sex </span></td>
-          <td><span> doctor_info.doctor_age </span></td>
-          <td><span> doctor_info.doctor_telep </span></td>
-          <td><span> doctor_info.doctor_position </span></td>
-          <td><span> doctor_info.doctor_dept.dept_name</span></td>
-          <!-- <td colspan="6"></td> -->
-          <!--定义表头单元格应该横跨的列数-->
+        <tr v-for="(item,index) in doctor_infos" :key="index">
+          <th>{{item.doctor_id}}</th>
+          <th>{{item.doctor_name}}</th>
+          <th>{{item.doctor_sex}}</th>
+          <th>{{item.doctor_age}}</th>
+          <th>{{item.doctor_telep}}</th>
+          <th>{{item.doctor_position}}</th>
+          <th>{{item.dept_name}}</th>
         </tr>
       </table>
       <form class="f">
-        <input type="submit" class="a2 btn-info" formaction="/choose/" value="返回上一级">
-        <input type="submit" class="a1 btn-info" value="查看科室工作表" formaction="/work1/" formmethod="get">
+        <input type="button" class="a2 btn-info" value="返回上一级" @click="back">
+        <input type="button" class="a1 btn-info" value="查看科室工作表"  @click="checkKeShiWork">
       </form>
     </div>
   </div>
@@ -41,14 +38,24 @@ export default {
   },
   data () {
     return {
-
+      doctor_infos: [
+        {
+          dept_name: "神经外科",
+          doctor_age: "2",
+          doctor_id: "abc123456",
+          doctor_name: "abc123456",
+          doctor_position: "adwdadwadwawd",
+          doctor_sex: "男",
+          doctor_telep: "17316289569"
+        }
+      ]
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -57,7 +64,21 @@ export default {
 
   },
   methods: {
-
+    init () {
+      console.log('hello')
+      this.$api.checkKeShi({
+        doctor_dept: this.$route.query.id
+      }).then(res => {
+        console.log(res)
+        this.doctor_infos = res.data.doctor_infos
+      })
+    },
+    back(){
+      this.$router.go(-1)
+    },
+    checkKeShiWork(){
+      this.$router.push('/UsersWork')
+    }
   },
   components: {
 

@@ -4,14 +4,18 @@
       <form>
         <h2>打印挂号单</h2>
         门&nbsp;诊&nbsp;&nbsp;号:
-        <input class="input1" name="patient_name" value=" id "><br><br>
-        姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:<input class="input1" name="patient_name" value=" name "><br><br>
-        性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:<input class="input1" name="patient_sex" value=" sex "><br><br>
-        年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:<input class="input1" name="patient_age" value=" age "><br><br>
-        身份证号:<input class="input1" name="patient_idcard" value=" id_card "><br><br>
-        科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;室:<input class="input1" name="patient_dept" value=" dept "><br><br>
-        <input class="input02" type="submit" value="返回主界面" formaction="/choose1/"><br><br>
-        <input class="input02" type="submit" value="返回上一级" formaction="/guahao/">
+        <input disabled class="input1" name="patient_name" :value="msg.id"><br><br>
+        姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:<input disabled class="input1" name="patient_name"
+          :value="msg.name"><br><br>
+        性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:<input disabled class="input1" name="patient_sex"
+          :value="msg.sex"><br><br>
+        年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:<input disabled class="input1" name="patient_age"
+          :value="msg.age"><br><br>
+        身份证号:<input disabled class="input1" name="patient_idcard" :value="msg.id_card"><br><br>
+        科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;室:<input disabled class="input1" name="patient_dept"
+          :value="msg.dept"><br><br>
+        <input class="input02" type="submit" value="返回主界面" @click="go('/Choose')"><br><br>
+        <input class="input02" type="submit" value="返回上一级" @click="go('/Insert')">
       </form>
     </div>
   </div>
@@ -24,14 +28,21 @@ export default {
   },
   data () {
     return {
-
+      msg: {
+        age: "",
+        dept: "神经外科",
+        id: 5,
+        id_card: "",
+        name: "",
+        sex: "女"
+      }
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -40,7 +51,18 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.getPrint({
+        patient_id: this.$route.query.id
+      }).then(res => {
+        console.log(res)
+        this.msg = res.data
+      })
+      // console.log(this.$route.query)
+    },
+    go (url) {
+      this.$router.push(url)
+    }
   },
   components: {
 

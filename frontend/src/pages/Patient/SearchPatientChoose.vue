@@ -3,16 +3,14 @@
     <div class="hello">
       <form method="post">
         <span>按病人姓名查找：</span>
-        <input class="kuang1" type="text" name="patient_name" value="" maxlength="100" />
-        <input class="kuang2 btn-default" type="submit" value="查询" formaction="/search_by_patient_name/"><br><br>
+        <input class="kuang1" type="text" name="patient_name" v-model="name" maxlength="100" />
+        <input class="kuang2 btn-default" type="button" value="查询" @click="searchName"><br><br>
         <span>按病人科室查找：</span>
-        <select class="select01" name="patient_dept">
-          <option value="dept.id">dept.dept_name</option>
+        <select class="select01" name="patient_dept" @change="changeSelect">
+          <option v-for="(item,index) in depts" :key="index" :value="item.id">{{item.name}}</option>
         </select>
-        <input class="kuang2 btn-default" type="submit" value="查询" name="" formaction="/search_by_patient_dept/"
-          formmethod="post">
-        <input class="kuang3 btn-default" type="submit" value="返回上一级" name="" formaction="/search_by_patient_dept/"
-          formmethod="get">
+        <input class="kuang2 btn-default" type="submit" value="查询" name="" @click="searchDpet">
+        <input class="kuang3 btn-default" type="submit" value="返回上一级" name="" @click="go('/Choose')">
       </form>
     </div>
     <p>给我一份信任，还您一身健康</p>
@@ -26,14 +24,16 @@ export default {
   },
   data () {
     return {
-
+      depts: [],
+      id: '',
+      name: '请输入'
     }
   },
   computed: {
 
   },
   created () {
-
+    this.init()
   },
   mounted () {
 
@@ -42,7 +42,27 @@ export default {
 
   },
   methods: {
-
+    init () {
+      this.$api.bingren().then(res => {
+        console.log(res)
+        this.depts = res.data.depts
+        this.id = res.data.depts[0].id
+      })
+    },
+    changeSelect (select) {
+      let value = select.srcElement.value
+      this.id = value
+      console.log('select >>> ', select.srcElement.value)
+    },
+    searchName () {
+      this.$router.push(`/SearchByPatientName?name=${this.name}`)
+    },
+    go (url) {
+      this.$router.push(url)
+    },
+    searchDpet () {
+      this.$router.push(`/SearchByPatientDept?id=${this.id}`)
+    }
   },
   components: {
 
