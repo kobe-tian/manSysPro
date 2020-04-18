@@ -1,31 +1,34 @@
 <template>
-  <div>
-    <table border="0">
-      <tr class="th1">
-        <th>科&nbsp;&nbsp;室</th>
-        <th>医生姓名</th>
-        <th>医生编号</th>
-        <th>工作时间</th>
-      </tr>
-      <!--循环user_results中的数据输出 -->
-      <tr class="th2">
-        <th>work_time_result.work_doctor_dept.dept_name </th>
-        <th>work_time_result.work_doctor_name </th>
-        <th>work_time_result.work_doctor_id.doctor_id</th>
-        <th>work_time_result.work_time</th>
-      </tr>
-      <form>
-        <div id="header">
-          请输入需要修改的时间：<input type="text" name="alter_value"><br><br><br>
-          请输入修改之后的时间：<input type="text" name="alter_value_to">&nbsp;&nbsp;
-          <input type="submit" class="btn1 btn-info" value="修改" formaction="/alter_work_time/" formmethod="get"
-            onclick="alert('修改成功')"><br><br>
-        </div>
-      </form>
-    </table><br><br><br><br><br><br><br>
-    <form>
-      <input type="submit" class="btn btn-default" value="返回上一级" formaction="/back4/" formmethod="get">
-    </form>
+  <div class="body">
+    <div id="header">
+      <div class="pan">
+        请输入需要修改的时间：<input type="text" name="alter_value">
+      </div>
+      <div>
+        请输入修改之后的时间：<input type="text" name="alter_value_to">&nbsp;&nbsp;
+        <input type="submit" class="btn1 btn-info" value="修改" formaction="/alter_work_time/" formmethod="get"
+          onclick="alert('修改成功')">
+      </div>
+    </div>
+    <div class="tabler">
+      <div>
+        <el-table :data="tableData" border style="width: 500px">
+          <el-table-column prop="date" label="科室">
+          </el-table-column>
+          <el-table-column prop="name" label="医生姓名">
+          </el-table-column>
+          <el-table-column prop="address" label="医生编号">
+          </el-table-column>
+          <el-table-column prop="address" label="工作时间">
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
+    <div class="but">
+      <el-button>
+        返回上一级
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -36,7 +39,23 @@ export default {
   },
   data () {
     return {
-
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
   },
   computed: {
@@ -61,17 +80,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
-  background: url("../../assets/img/QQ图片20190327153120.jpg") no-repeat center
+.body {
+  height: calc(100vh);
+  padding: 1px;
+  background: url(/static/img/QQ图片20190327153120.0b2d185.jpg) no-repeat center
     center fixed;
   background-size: 100%;
+}
+
+.but {
+  margin: 200px 100px;
+  display: flex;
 }
 
 #header {
   height: 120px;
   margin-top: 50px;
   padding-top: 10px;
-  padding-left: 550px;
+
+  .pan {
+    margin-bottom: 30px;
+    margin-right: 59px;
+  }
+}
+
+.tabler {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
 }
 
 table {

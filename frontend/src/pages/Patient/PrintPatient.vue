@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="div1">
       <form>
         <h2>打印挂号单</h2>
@@ -49,20 +49,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
-  // background: url("../../static/img/2475_wh300.jpg") no-repeat;
+.body {
+  height: calc(100vh);
+  padding: 1px;
+  background: url("../../assets/img/2475_wh300.jpg") no-repeat;
   background-size: 100%;
 }
 
 .div1 {
   height: 465px;
-  width: 350px;
+  width: 450px;
   margin-left: 530px;
   margin-top: -100px;
   background-color: gainsboro;
   opacity: 0.68;
   filter: alpha(opacity=70);
-  padding-left: 60px;
   border-radius: 30px;
 }
 
@@ -88,7 +89,9 @@ body {
 }
 
 h2 {
-  margin-left: 80px;
+  text-align: center;
+  font-size: 22px;
+  padding: 20px;
 }
 
 body {

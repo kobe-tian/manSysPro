@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="body">
     <h2>出院登记</h2>
-    <div>
+    <div class="hello">
       <form class="t">
         请选择科室名称:
         <select name="patient_dept" class="d1">
@@ -13,13 +13,10 @@
         <tr>
           <th>房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</th>
           <th>病&nbsp;房&nbsp;状&nbsp;况</th>
-          <td></td>
         </tr>
-        <!--循环user_results中的数据输出 -->
         <tr>
-          <td>dept_room_info.room_id</td>
-          <td>dept_room_info.room_patient_name</td>
-          <td></td>
+          <td>1</td>
+          <td>空</td>
         </tr>
       </table>
       <form class="t">
@@ -27,7 +24,7 @@
         <input type="submit" value="确认" formaction="/out_hospital/" formmethod="post" class="btn btn-default">
       </form>
     </div>
-    <form>
+    <form class="f">
       <input type="submit" value="返回上一级" formaction="/return4/" formmethod="get" class="btn1 btn-default">
     </form>
   </div>
@@ -65,12 +62,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  padding: 1px;
+  height: calc(100vh);
   background: url("../../assets/img/out3.png");
-  background-size: 100%;
+  background-size: auto 100%;
 }
 h2 {
   text-align: center;
+  font-size: 32px;
+  margin-top: 30px;
+  font-weight: bold;
+}
+.f {
+  display: flex;
+  margin-left: 100px;
 }
 .d1 {
   width: 100px;
@@ -100,7 +106,7 @@ h2 {
   margin-left: 40px;
   margin-bottom: 120px;
 }
-div {
+.hello {
   width: 540px;
   height: 540px;
   margin-top: 30px;

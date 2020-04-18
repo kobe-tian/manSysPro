@@ -1,30 +1,23 @@
 <template>
-  <div>
+  <div class="body">
     <div id="bg">
       <div CLASS="head">
         <h2>药品管理</h2>
       </div>
       <div class="inf">
         <h3>所有药品信息表</h3>
-        <form action="/search_medicine/">
-          <div class="guodong">
-            <table border="1">
-              <tr>
-                <td>药&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;称</td>
-                <td>药&nbsp;品&nbsp;数&nbsp;量</td>
-              </tr>
-              <tr>
-                <td> medicine.medicine_name </td>
-                <td> medicine.medicine_num </td>
-              </tr>
-            </table>
-          </div>
-        </form>
-      </div>
-
-      <form action="/back2/" method="post">
         <input type="submit" value="添加新药材" class="tian btn-default">
-      </form>
+        <table border="1">
+          <tr>
+            <td>药&nbsp;&nbsp;品&nbsp;&nbsp;名&nbsp;&nbsp;称</td>
+            <td>药&nbsp;品&nbsp;数&nbsp;量</td>
+          </tr>
+          <tr>
+            <td> name </td>
+            <td> num </td>
+          </tr>
+        </table>
+      </div>
 
       <div class="find">
 
@@ -34,24 +27,25 @@
             style="font-size: 18px ;width: 150px">
           <input type="submit" value="查找" class="btn0 btn-default">
         </form>
-        <form>
-          <input type="submit" value="取药" class="btn1 btn-default" formaction="/take_medicine/" formmethod="get"
-            id="btnq">
+        <div class="hjk">
+          <input type="submit" value="取药" class="btn1 btn-default" formaction="/add_medicine/" formmethod="get"
+            id="btnt">
           <input type="submit" value="添加" class="btn1 btn-default" formaction="/add_medicine/" formmethod="get"
             id="btnt">
-        </form>
+        </div>
         <table border="1" class="b">
           <tr>
             <td> result_key </td>
+            <td> result_key </td>
           </tr>
           <tr>
+            <td> result_value </td>
             <td> result_value </td>
           </tr>
         </table>
       </div>
     </div>
-    <input action="/back2/" method="get">
-    <input type="submit" value="返回上一级" class="btn2 btn-default"/>
+    <input type="submit" value="返回上一级" class="btn2 btn-default" />
   </div>
 </template>
 
@@ -87,10 +81,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.hjk {
+  margin-top: 30px;
+  width: 323px;
+}
+h2 {
+  font-size: 32px;
+  text-align: center;
+  font-weight: bold;
+}
+h3 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background: url("../../assets/img/1234.png") no-repeat center center fixed;
   background-size: 100%;
-  height: 400px;
   font-size: 18px;
 }
 
@@ -130,15 +139,11 @@ body {
 }
 
 #btnt {
-  position: absolute;
   width: 80px;
-  top: 380px;
-  left: 300px;
-  margin-top: 20%;
-  margin-left: 10%;
   font-size: 16px;
   background: #87ceff;
   border-radius: 20px;
+  margin-left: 50px;
 }
 
 .b {
@@ -147,6 +152,7 @@ body {
 }
 
 .inf {
+  position: relative;
   margin-top: 2%;
   margin-right: 12%;
   width: 200px;
@@ -173,8 +179,8 @@ body {
 
 .tian {
   position: absolute;
-  top: 140px;
-  right: 100px;
+  top: -8px;
+  right: -86px;
   width: 100px;
   height: 35px;
   background: #87ceff;
@@ -196,7 +202,7 @@ body {
 
 table {
   border-collapse: collapse;
-  margin: 0 auto;
+  margin: 20px auto;
   text-align: center;
   overflow: auto;
 }
@@ -206,6 +212,8 @@ table th {
   border: 1px solid #cad9ea;
   color: black;
   height: 30px;
+  line-height: 46px;
+  padding: 0 10px;
 }
 
 table thead th {

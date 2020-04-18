@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div id="header">
       <h2>诊断表</h2>
     </div><br>
@@ -42,11 +42,14 @@
       </table>
     </div>
     <div id="foot">
-      <form>
-        {% csrf_token %}
-        <input type="submit" class="btn btn-default" value="继续查询" formmethod="get" formaction="/search_p/"><br><br>
-        <input type="submit" class="btn btn-default" value="返回主界面" formmethod="get" formaction="/choose1/">
-      </form>
+      <div class="form">
+        <el-button>
+          继续查询
+        </el-button>
+        <el-button>
+          返回主界面
+        </el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -83,7 +86,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background: url("../../assets/img/4.jpg") no-repeat center fixed;
   background-size: 100%;
 }
@@ -96,6 +101,7 @@ body {
 h2 {
   font-family: 华文行楷;
   font-size: 40px;
+  margin-top: 100px;
 }
 
 table {
@@ -104,10 +110,15 @@ table {
   font-size: 20px;
   color: #333333;
   text-align: center;
+
+  th {
+    width: 100px;
+  }
 }
 
 table td {
   color: #666;
+  width: 400px;
   height: 50px;
   border-bottom: 1px solid gray;
   font-family: 华文行楷;

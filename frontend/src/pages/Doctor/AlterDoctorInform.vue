@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <form>
       <h2>医生信息修改</h2>
       <div id="bg">
@@ -11,11 +11,10 @@
         电话：<input type="text" value="doctor_telep" name="telep"><br>
         职位：<input type="text" value="doctor_position" name="position"><br>
       </div>
-      <p class="btn">
-        <p class="btn1"><input type="submit" value="确认修改" formaction="/back3/" formmethod="post"
-            onclick="alert('修改成功')">
-        </p>
-        <p class="btn1 "> <input type="submit" value="返回上一级" formaction="/back3/" formmethod="get"></p>
+      <div class="btn">
+        <input type="submit" value="确认修改" formaction="/back3/" formmethod="post" onclick="alert('修改成功')">
+        <input type="submit" value="返回上一级" formaction="/back3/" formmethod="get">
+      </div>
     </form>
   </div>
 </template>
@@ -52,22 +51,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background: url("../../assets/img/download.jpg") no-repeat center center fixed;
   background-size: 100%;
 }
 
 #bg {
-  margin-left: 23%;
   margin-top: 8%;
 }
 
 form {
+  margin: 100px auto;
   background-color: rgba(100, 149, 237, 0.7);
   height: 520px;
   width: 550px;
-  margin-left: 30%;
-  margin-top: 5%;
   border-radius: 15px;
 }
 
@@ -78,7 +77,7 @@ input {
 }
 
 h2 {
-  margin-left: 35%;
+  font-size: 32px;
   margin-top: 5%;
   padding-top: 5%;
 }
@@ -99,14 +98,16 @@ p span {
   /*设置两个按钮的宽高、边距及边框样式*/
   width: 110px;
   height: 30px;
-  margin-right: 100px;
   background: #f0f8ff;
   border-radius: 20px;
 }
 
 .btn {
-  margin-left: 65%;
-  margin-top: 5%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  display: flex;
+  margin: 20px 50px;
 }
 
 .btn1 {

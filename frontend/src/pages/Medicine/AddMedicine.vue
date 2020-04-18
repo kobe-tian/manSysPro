@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <h2>添加药品</h2>
     <div>
       <div class="bg">
@@ -9,7 +9,7 @@
       <div class="btn">
         <p class="btn1 btn-default"><input type="submit" value="确认" onclick="alert('添加药品成功！')"
             formaction="/add_medicine/" formmethod="post"></p>
-        <p class="btn1 btn-default"><input type="submit" value="返回上一级" name="" formaction="/back1/" formmethod="get">
+        <p class="btn1 btn-default"><input type="submit" value="返回上一级" name="" formaction="/back1/" formmethod="get" style="margin-top:30px">
         </p>
       </div>
     </div>
@@ -49,7 +49,6 @@ export default {
 
 <style scoped lang="scss">
 h2 {
-  padding-left: 60%;
   margin-top: 4%;
 }
 
@@ -59,13 +58,16 @@ input {
   border-radius: 5px;
 }
 
-body {
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background: url("../../assets/img/1234.png") no-repeat center center fixed;
   background-size: 100%;
   font-size: 28px;
 }
 
 .bg {
+  text-align: left;
   width: 500px;
   height: 300px;
   margin-top: 5%;

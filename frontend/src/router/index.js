@@ -13,6 +13,7 @@ import DoctorWorkTime from '@/pages/Doctor/DoctorWorkTime'
 import OutHospitalRegist from '@/pages/Doctor/OutHospitalRegist'
 import PrintDiagnosisResults from '@/pages/Doctor/PrintDiagnosisResults'
 import SearchByDoctorDept from '@/pages/Doctor/SearchByDoctorDept'
+import SearchByDoctorName from '@/pages/Doctor/SearchByDoctorName'
 import SearchDoctorChoose from '@/pages/Doctor/SearchDoctorChoose'
 import SearchEmptyRoom from '@/pages/Doctor/SearchEmptyRoom'
 import UserWork from '@/pages/Doctor/UserWork'
@@ -93,6 +94,11 @@ export default new Router({
       path: '/SearchByDoctorDept',
       name: 'SearchByDoctorDept',
       component: SearchByDoctorDept
+    },
+    {
+      path: '/SearchByDoctorName',
+      name: 'SearchByDoctorName',
+      component: SearchByDoctorName
     },
     {
       path: '/SearchDoctorChoose',

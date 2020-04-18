@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>
+  <div class="body">
+    <div class="hello">
       <form method="post">
         <span>按病人姓名查找：</span>
         <input class="kuang1" type="text" name="patient_name" value="" maxlength="100" />
@@ -51,16 +51,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background-color: mediumorchid;
-  background: url('../../assets/img/search_choose.jpg') no-repeat center center
+  background: url("../../assets/img/search_choose.jpg") no-repeat center center
     fixed;
   background-size: 100%;
 }
 
-div {
-  margin-top: 250px;
-  margin-left: 480px;
+.hello {
+  margin: 250px auto;
   width: 550px;
   height: 300px;
   background-color: white;
@@ -86,7 +87,7 @@ div {
 p {
   color: dodgerblue;
   font-size: 42px;
-  font-family: 'Adobe 楷体 Std R';
+  font-family: "Adobe 楷体 Std R";
   text-align: center;
   margin-top: 60px;
 }
@@ -111,7 +112,7 @@ p {
 
 span {
   font-size: 18px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   margin-left: 35px;
 }
 </style>

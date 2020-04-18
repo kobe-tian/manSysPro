@@ -1,16 +1,15 @@
 <template>
-  <div>
-    <div>
+  <div class="body">
+    <div class="hello">
       <form method="post">
         <span>按医生姓名查找：</span>
-        <input class="kuang1" type="text" name="doctor_name" maxlength="100" />
-        <input class="kuang2 btn-default" type="submit" value="查询" formaction="/search_by_doctor_name/"
-          formmethod="post"><br><br>
+        <input class="kuang1" type="text" name="patient_name" value="" maxlength="100" />
+        <input class="kuang2 btn-default" type="submit" value="查询" formaction="/search_by_patient_name/"><br><br>
         <span>按医生科室查找：</span>
-        <select class="select01" name="doctor_dept">
+        <select class="select01" name="patient_dept">
           <option value="dept.id">dept.dept_name</option>
         </select>
-        <input class="kuang2 btn-default" type="submit" value="查询" formaction="/search_by_doctor_dept/"
+        <input class="kuang2 btn-default" type="submit" value="查询" name="" formaction="/search_by_patient_dept/"
           formmethod="post">
         <input class="kuang3 btn-default" type="submit" value="返回上一级" name="" formaction="/search_by_patient_dept/"
           formmethod="get">
@@ -52,16 +51,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background-color: mediumorchid;
   background: url("../../assets/img/search_choose.jpg") no-repeat center center
     fixed;
   background-size: 100%;
 }
 
-div {
-  margin-top: 250px;
-  margin-left: 480px;
+.hello {
+  margin: 250px auto;
   width: 550px;
   height: 300px;
   background-color: white;
@@ -81,7 +81,7 @@ div {
   height: 27px;
   border-radius: 10px;
   background-color: #8ee5ee;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 p {
@@ -103,7 +103,7 @@ p {
 .kuang3 {
   width: 100px;
   height: 30px;
-  margin-left: 380px;
+  margin-left: 320px;
   margin-top: 100px;
   border-radius: 10px;
   border-radius: 10px;

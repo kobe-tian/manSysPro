@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="div1">
       <table border="0">
         <tr class="th1 ">
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
   background: url("../../assets/img/QQ图片20190327153120.jpg") no-repeat center;
   background-size: 100%;
   font-size: 20px;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     {#<div id="bg">#}
     <div id="four">
       <h2>欢迎进入管理员界面</h2><br />
@@ -9,7 +9,6 @@
     </div>
 
     <form action="" class="f">
-      {% csrf_token %}
       <input type="submit" class="three btn-info" value="挂号" formmethod="post" formaction="/guahao/">
       <br><br>
       <input type="submit" class="three btn-info" value="查询病人" formmethod="get" formaction="/search_p/">
@@ -21,7 +20,7 @@
     <form action="/new_login/">
       <input type="submit" class="two btn-info" value="退出">
     </form>
-    {#</div>#}
+  </div>
   </div>
 </template>
 
@@ -57,7 +56,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  height: calc(100vh);
+  padding: 1px;
   background: url("../../assets/img/download1.jpg") no-repeat center center
     fixed;
   background-size: 100%;

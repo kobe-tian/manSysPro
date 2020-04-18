@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="div1">
       <form>
         <h2>挂号单</h2>
@@ -59,7 +59,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  padding: 1px;
+  height: calc(100vh);
   background: url("../../assets/img/_500703205.jpg") no-repeat center center
     fixed;
   background-size: 100%;
@@ -75,7 +77,6 @@ body {
   opacity: 0.7;
   filter: alpha(opacity=70);
   padding-top: 10px;
-  padding-left: 60px;
   border-radius: 30px;
 }
 
@@ -108,6 +109,8 @@ body {
 }
 
 h2 {
-  margin-left: 80px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
 }
 </style>

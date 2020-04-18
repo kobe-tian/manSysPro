@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <form>
       <h2>添加新药材</h2>
       <div>名称：<input type="text" required></div><br>
@@ -44,7 +44,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-body {
+.body {
+  height: calc(100vh);
   // background: url("../../assets/img/yanpin.jpg") no-repeat center center fixed;
   background-size: 100%;
 }
