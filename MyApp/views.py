@@ -454,13 +454,12 @@ def display(request):
     context = {
             "status": 1,
             "patient_all_id": [{"id": val.id} for val in patient_all_id],
-            "patient_info": [{
-                "patient_name": val.patient_name,
-                "patient_sex": val.patient_sex,
-                "patient_age": val.patient_age,
-                "patient_telep": val.patient_telep,
-                "dept_name": val.patient_dept.dept_name
-            } for val in patient_info],
+            "patient_info": {
+                "patient_name": patient_info.patient_name,
+                "patient_sex": patient_info.patient_sex,
+                "patient_age": patient_info.patient_age,
+                "patient_telep": patient_info.patient_telep,
+                "dept_name": patient_info.patient_dept.dept_name},
             "medicines": [{"medicine_name": val.medicine_name} for val in medicines],
             "patient_id":id1,
             "length": length1
