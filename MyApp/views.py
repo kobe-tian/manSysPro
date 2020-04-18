@@ -242,7 +242,7 @@ def search_by_doctor_dept(request):
     global id3
     id3=doctor_dept
     doctor_infos = Doctor.objects.filter(doctor_dept=int(doctor_dept)).all()
-    context = {
+    context = json.dumps({
         "doctor_infos": [
             {
                 "doctor_id": val.doctor_id,
@@ -254,7 +254,7 @@ def search_by_doctor_dept(request):
                 "dept_name": val.doctor_dept.dept_name
             } for val in doctor_infos
         ]
-    }
+    })
     return HttpResponse(context, content_type="application/json")
 
 def work1(request):
@@ -300,12 +300,14 @@ def alter(request):
     if request.method=="GET":
         global doctor_name1
         d = Doctor.objects.filter(doctor_name=doctor_name1).first()
+        if d is None:
+            return HttpResponse("{}", content_type="application/json")
         id5 = d.doctor_id
         context = json.dumps({
             "doctor_id":d.doctor_id,
             "doctor_name": d.doctor_name,
             "doctor_sex": d.doctor_sex,
-            "dept_name": d.dept_name,
+            "dept_name": d.doctor_dept.dept_name,
             "doctor_age": d.doctor_age,
             "doctor_telep": d.doctor_telep,
             "doctor_position": d.doctor_position
@@ -393,46 +395,34 @@ def search_medicine(request):
 
 def add_medicine(request):
     global medicine1, num1
-    if request.method == "GET":
-        context = json.dumps({
-            "medicine": medicine1
-        })
-        return HttpResponse(context, content_type="application/json")
-    else:
-        num = request.POST.get("number")
-        M=Medicine.objects.filter(medicine_name=medicine1).first()
-        numbers=M.medicine_num
-        num_result = numbers + int(num)
-        Medicine.objects.filter(medicine_name=medicine1).update(medicine_num=num_result)
-        context = json.dumps({
-            "num": num,
-            "medicine": medicine1
-        })
-        return HttpResponse(context, content_type="application/json")
+    num = request.POST.get("number")
+    M=Medicine.objects.filter(medicine_name=medicine1).first()
+    numbers=M.medicine_num
+    num_result = numbers + int(num)
+    Medicine.objects.filter(medicine_name=medicine1).update(medicine_num=num_result)
+    context = json.dumps({
+        "num": num,
+        "medicine": medicine1
+    })
+    return HttpResponse(context, content_type="application/json")
 
 def take_medicine(request):
     global medicine1,num1,n
-    if request.method == "GET":
-        context=json.dumps({
-            "medicine": medicine1
-        })
-        return HttpResponse(context, content_type="application/json")
-    else:
-        number=request.POST.get("number")
-        M = Medicine.objects.filter(medicine_name=medicine1).first()
-        numbers = M.medicine_num
-        num_result=numbers-int(number)
-        Medicine.objects.filter(medicine_name=medicine1).update(medicine_num=num_result)
-        context=json.dumps({
-            "num":number,
-            "medicine":medicine1
-        })
-        return HttpResponse(context, content_type="application/json")
+    number=request.POST.get("number")
+    M = Medicine.objects.filter(medicine_name=medicine1).first()
+    numbers = M.medicine_num
+    num_result=numbers-int(number)
+    Medicine.objects.filter(medicine_name=medicine1).update(medicine_num=num_result)
+    context=json.dumps({
+        "num":number,
+        "medicine":medicine1
+    })
+    return HttpResponse(context, content_type="application/json")
 
 def add_medicine_type(request):
     m_name=request.POST.get("m_name")
     m_num=request.POST.get("m_num")
-    Medicine.objects.create(medicine_name=m_name,medicine_num=m_num)
+    Medicine.objects.create(medicine_name=m_name, medicine_num=m_num)
     return HttpResponse("{}", content_type="application/json")
 
 def display(request):
@@ -683,16 +673,16 @@ def back3(request):
         }
         return render(request,'Doctor/search_by_doctor_name.html',context=context)
     else:
-        age = request.POST.get("age")
+        age = request.POST.get("age", "")
         position = request.POST.get("position")
-        telep = request.POST.get("telep")
+        telep = request.POST.get("telep", "")
         Doctor.objects.filter(doctor_id=id5).update(doctor_age=age, doctor_position=position, doctor_telep=telep)
         d = Doctor.objects.filter(doctor_name=doctor_name1).first()
         context = json.dumps({
             "doctor_id": d.doctor_id,
             "doctor_name": d.doctor_name,
             "doctor_sex": d.doctor_sex,
-            "dept_name": d.dept_name,
+            "dept_name": d.doctor_dept.dept_name,
             "doctor_age": d.doctor_age,
             "doctor_telep": d.doctor_telep,
             "doctor_position": d.doctor_position
