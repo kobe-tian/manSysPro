@@ -17,7 +17,7 @@
       <input type="submit" class="three btn-info" value="药品管理" @click="go('/MedicineManage')">
     </form>
     <form action="/new_login/">
-      <input type="submit" class="two btn-info" value="退出">
+      <input type="submit" class="two btn-info" value="退出" @click="quit">
     </form>
   </div>
   </div>
@@ -48,6 +48,9 @@ export default {
   methods: {
     go (url) {
       this.$router.push(url)
+    },
+    quit(){
+      this.go('/')
     }
   },
   components: {
